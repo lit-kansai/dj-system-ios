@@ -6,12 +6,12 @@ protocol HomePageControllerProtocol: AnyObject {
     var state: HomePageView.DataSource { get set }
 }
 
-final class HomePageController: UIViewController {
+final class HomePageViewController: UIViewController {
     @ObservedObject var state: HomePageView.DataSource = .init()
     // TODO: 後でletに変える
-    var roomAPI: RoomAPIProtocol = Room.API()
+    var roomAPI: GetRoomAPIProtocol = Room.API()
     
-    init(roomAPI: RoomAPIProtocol) {
+    init(roomAPI: GetRoomAPIProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.roomAPI = roomAPI
     }
@@ -34,7 +34,7 @@ final class HomePageController: UIViewController {
 
 }
 
-extension HomePageController: HomePageControllerProtocol {
+extension HomePageViewController: HomePageControllerProtocol {
     func searchRoom(byId id: String) async {
         let roomOverview = try! await roomAPI.getRoom(id: id)
         Task.detached { @MainActor [state] in
@@ -43,14 +43,3 @@ extension HomePageController: HomePageControllerProtocol {
     }
 }
 
-extension UIHostingController {
-    func coverView(parent: UIView) {
-        view.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            view.topAnchor.constraint(equalTo: parent.topAnchor),
-            view.bottomAnchor.constraint(equalTo: parent.bottomAnchor),
-            view.trailingAnchor.constraint(equalTo: parent.trailingAnchor),
-            view.leadingAnchor.constraint(equalTo: parent.leadingAnchor)
-        ])
-    }
-}
