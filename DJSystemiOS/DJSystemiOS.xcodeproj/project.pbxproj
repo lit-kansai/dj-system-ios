@@ -14,7 +14,7 @@
 		9F27E9F129996A8800C86322 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9F27E9F029996A8800C86322 /* Assets.xcassets */; };
 		9F27E9F429996A8800C86322 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F27E9F229996A8800C86322 /* LaunchScreen.storyboard */; };
 		9F27EA0129996BB300C86322 /* HomePageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27EA0029996BB300C86322 /* HomePageView.swift */; };
-		9F27EA0329996BBC00C86322 /* HomePageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27EA0229996BBC00C86322 /* HomePageController.swift */; };
+		9F27EA0329996BBC00C86322 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27EA0229996BBC00C86322 /* HomePageViewController.swift */; };
 		9F27EA14299E8E3E00C86322 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 9F27EA13299E8E3E00C86322 /* Moya */; };
 		9F27EA16299E8E8E00C86322 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27EA15299E8E8E00C86322 /* API.swift */; };
 		9F27EA19299E8EF400C86322 /* MusicAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F27EA18299E8EF400C86322 /* MusicAPI.swift */; };
@@ -24,6 +24,10 @@
 		9F4E2EDD29AF9BE0001172E8 /* SearchMusicModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EDC29AF9BE0001172E8 /* SearchMusicModel.swift */; };
 		9F4E2EE129AF9D8C001172E8 /* MusicDatalModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EE029AF9D8C001172E8 /* MusicDatalModel.swift */; };
 		9F4E2EE329AF9E06001172E8 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EE229AF9E06001172E8 /* Data.swift */; };
+		9F4E2EE629B25FBE001172E8 /* RequestMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EE529B25FBE001172E8 /* RequestMusicViewController.swift */; };
+		9F4E2EE829B26008001172E8 /* RequestMusicView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EE729B26008001172E8 /* RequestMusicView.swift */; };
+		9F4E2EEA29B26044001172E8 /* RequestMusic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EE929B26044001172E8 /* RequestMusic.swift */; };
+		9F4E2EED29B26330001172E8 /* UIHostingViewController+coverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F4E2EEC29B26330001172E8 /* UIHostingViewController+coverView.swift */; };
 		9F6AFD3A29A2133D000B0B23 /* GetRoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AFD3929A2133D000B0B23 /* GetRoom.swift */; };
 		9F6AFD3C29A214C8000B0B23 /* RoomFeatureBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AFD3B29A214C8000B0B23 /* RoomFeatureBase.swift */; };
 		9F6AFD3E29A217E3000B0B23 /* TargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F6AFD3D29A217E3000B0B23 /* TargetType.swift */; };
@@ -40,7 +44,7 @@
 		9F27E9F329996A8800C86322 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9F27E9F529996A8800C86322 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9F27EA0029996BB300C86322 /* HomePageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageView.swift; sourceTree = "<group>"; };
-		9F27EA0229996BBC00C86322 /* HomePageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageController.swift; sourceTree = "<group>"; };
+		9F27EA0229996BBC00C86322 /* HomePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageViewController.swift; sourceTree = "<group>"; };
 		9F27EA15299E8E8E00C86322 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		9F27EA18299E8EF400C86322 /* MusicAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicAPI.swift; sourceTree = "<group>"; };
 		9F27EA1C299E8F3800C86322 /* RoomAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomAPI.swift; sourceTree = "<group>"; };
@@ -49,6 +53,10 @@
 		9F4E2EDC29AF9BE0001172E8 /* SearchMusicModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicModel.swift; sourceTree = "<group>"; };
 		9F4E2EE029AF9D8C001172E8 /* MusicDatalModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicDatalModel.swift; sourceTree = "<group>"; };
 		9F4E2EE229AF9E06001172E8 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		9F4E2EE529B25FBE001172E8 /* RequestMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMusicViewController.swift; sourceTree = "<group>"; };
+		9F4E2EE729B26008001172E8 /* RequestMusicView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMusicView.swift; sourceTree = "<group>"; };
+		9F4E2EE929B26044001172E8 /* RequestMusic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMusic.swift; sourceTree = "<group>"; };
+		9F4E2EEC29B26330001172E8 /* UIHostingViewController+coverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIHostingViewController+coverView.swift"; sourceTree = "<group>"; };
 		9F6AFD3929A2133D000B0B23 /* GetRoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetRoom.swift; sourceTree = "<group>"; };
 		9F6AFD3B29A214C8000B0B23 /* RoomFeatureBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomFeatureBase.swift; sourceTree = "<group>"; };
 		9F6AFD3D29A217E3000B0B23 /* TargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TargetType.swift; sourceTree = "<group>"; };
@@ -103,6 +111,7 @@
 		9F27E9FC29996B7500C86322 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				9F4E2EEB29B26314001172E8 /* Extension */,
 				9F27EA15299E8E8E00C86322 /* API.swift */,
 				9F4E2EE229AF9E06001172E8 /* Data.swift */,
 			);
@@ -121,6 +130,7 @@
 		9F27E9FE29996B7600C86322 /* Pages */ = {
 			isa = PBXGroup;
 			children = (
+				9F4E2EE429B25D4F001172E8 /* RequestMusicPage */,
 				9F4E2ED729AF9B5C001172E8 /* SearchMusicPage */,
 				9F27E9FF29996B7600C86322 /* HomePage */,
 			);
@@ -133,7 +143,7 @@
 				9F27EA07299971AD00C86322 /* Views */,
 				9F27EA0429996BC800C86322 /* UseCases */,
 				9F27EA0029996BB300C86322 /* HomePageView.swift */,
-				9F27EA0229996BBC00C86322 /* HomePageController.swift */,
+				9F27EA0229996BBC00C86322 /* HomePageViewController.swift */,
 			);
 			path = HomePage;
 			sourceTree = "<group>";
@@ -174,6 +184,7 @@
 		9F27EA17299E8ED500C86322 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				9F4E2EE929B26044001172E8 /* RequestMusic.swift */,
 				9F27EA18299E8EF400C86322 /* MusicAPI.swift */,
 			);
 			path = API;
@@ -205,6 +216,23 @@
 				9F4E2EE029AF9D8C001172E8 /* MusicDatalModel.swift */,
 			);
 			path = DataModel;
+			sourceTree = "<group>";
+		};
+		9F4E2EE429B25D4F001172E8 /* RequestMusicPage */ = {
+			isa = PBXGroup;
+			children = (
+				9F4E2EE529B25FBE001172E8 /* RequestMusicViewController.swift */,
+				9F4E2EE729B26008001172E8 /* RequestMusicView.swift */,
+			);
+			path = RequestMusicPage;
+			sourceTree = "<group>";
+		};
+		9F4E2EEB29B26314001172E8 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				9F4E2EEC29B26330001172E8 /* UIHostingViewController+coverView.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		9F6AFD3F29A27D43000B0B23 /* Domain */ = {
@@ -294,13 +322,17 @@
 			files = (
 				9F6AFD4229A27D58000B0B23 /* RoomDomain.swift in Sources */,
 				9F6AFD3E29A217E3000B0B23 /* TargetType.swift in Sources */,
-				9F27EA0329996BBC00C86322 /* HomePageController.swift in Sources */,
+				9F27EA0329996BBC00C86322 /* HomePageViewController.swift in Sources */,
 				9F4E2EDD29AF9BE0001172E8 /* SearchMusicModel.swift in Sources */,
+				9F4E2EED29B26330001172E8 /* UIHostingViewController+coverView.swift in Sources */,
 				9F6AFD3A29A2133D000B0B23 /* GetRoom.swift in Sources */,
 				9F4E2EE129AF9D8C001172E8 /* MusicDatalModel.swift in Sources */,
 				9F27E9EC29996A8700C86322 /* ViewController.swift in Sources */,
 				9F27E9E829996A8700C86322 /* AppDelegate.swift in Sources */,
+				9F4E2EE629B25FBE001172E8 /* RequestMusicViewController.swift in Sources */,
 				9F6AFD3C29A214C8000B0B23 /* RoomFeatureBase.swift in Sources */,
+				9F4E2EE829B26008001172E8 /* RequestMusicView.swift in Sources */,
+				9F4E2EEA29B26044001172E8 /* RequestMusic.swift in Sources */,
 				9F4E2ED929AF9B7A001172E8 /* SearchMusicViewController.swift in Sources */,
 				9F27EA1D299E8F3800C86322 /* RoomAPI.swift in Sources */,
 				9F27EA19299E8EF400C86322 /* MusicAPI.swift in Sources */,
@@ -462,6 +494,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -489,6 +522,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
