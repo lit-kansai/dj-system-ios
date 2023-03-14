@@ -1,5 +1,5 @@
-import UIKit
 import SwiftUI
+import UIKit
 
 protocol HomePageControllerProtocol: AnyObject {
     func searchRoom(byId id: String) async
@@ -10,20 +10,20 @@ final class HomePageViewController: UIViewController {
     @ObservedObject var state: HomePageView.DataSource = .init()
     // TODO: 後でletに変える
     var roomAPI: GetRoomAPIProtocol = Room.API()
-    
+
     init(roomAPI: GetRoomAPIProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.roomAPI = roomAPI
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.roomAPI = Room.API()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let homePage = HomePageView(controller: self)
         let hostingVC = UIHostingController(rootView: homePage)
         addChild(hostingVC)
