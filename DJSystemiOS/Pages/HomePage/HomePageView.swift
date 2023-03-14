@@ -3,12 +3,12 @@ import SwiftUI
 struct HomePageView: View {
     weak var controller: HomePageControllerProtocol?
     @ObservedObject var dataSource: DataSource
-    
+
     init(controller: HomePageControllerProtocol) {
         self.controller = controller
         self.dataSource = controller.state
     }
-    
+
     var body: some View {
         VStack {
             TextField("部屋を検索しよう！", text: $dataSource.searchQuery)

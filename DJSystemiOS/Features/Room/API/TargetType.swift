@@ -15,21 +15,21 @@ extension Room.API.TargetType: TargetType {
             return "/room/\(id)"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         case .getRoom:
             return .get
         }
     }
-    
+
     var task: Moya.Task {
         switch self {
         case .getRoom:
             return .requestPlain
         }
     }
-    
+
     var headers: [String : String]? {
         return ["Content-type": "application/json"]
     }

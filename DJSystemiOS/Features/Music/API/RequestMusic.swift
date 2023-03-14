@@ -19,5 +19,5 @@ extension Room.API: RequestMusicProtocol {
     func requestMusic(input: Room.API.RequestMusicResponse) async throws -> Room.API.RequestMusicResponse {
         return Room.API.RequestMusicResponse(ok: false)
     }
-    
+
 }
