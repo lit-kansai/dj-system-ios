@@ -1,0 +1,114 @@
+# プロジェクト名(例: XcodeGenPractice.xcodeprojみたいなやつが生成される)
+name: DJSystemiOS
+attributes:
+  ORGANIZATIONAME: "Tomoya Tanaka"
+
+options:
+  bundleIdPrefix: com.lit-kansai.dj-system-ios
+  developmentLanguage: ja
+  deploymentTarget: 15.0
+  groupOrdering: 
+    # - pattern: ProjectName
+    #   order: [App, Common, Pages]
+    # - pattern: '^.*Page$'
+    #   order: [View, Presenter, Interactor, Router]
+configs:
+  Develop: debug
+  Release: release
+
+schemes: 
+  App Develop:
+    build:
+      targets:
+        DJSystemiOS: all
+    run:
+      config: Develop
+    test:
+      config: Develop
+      targets:
+        - name: DJSystemiOSTests
+          parallelizable: true
+          randomExecutionOrder: true
+    archive:
+      config: Release
+
+packages:
+  Moya:
+    url: https://github.com/Moya/Moya.git
+    majorVersion: 15.0.0
+  PKHUD:
+    url: https://github.com/pkluz/PKHUD.git
+    majorVersion: 5.4.0
+  RswiftLibrary:
+    url: https://github.com/mac-cain13/R.swift.git
+    version: 7.3.0
+settings:
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 13.1.3
+    TARGETED_DEVICE_FAMILY: 1,2
+    SWIFT_VERSION: 5.0
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+targets:
+  DJSystemiOS:
+    type: application
+    platform: iOS
+    deploymentTarget: 15.0
+    sources: 
+      - path: DJSystemiOS
+        excludes:
+          - Generated
+      - path: DJSystemiOS/Generated/R.generated.swift
+        group: DJSystemiOS/Generated
+        optional: true
+    settings:
+      base:
+        BUNDLE_DISPLAY_NAME: "DJSystemiOS"
+        CURRENT_PROJECT_BUILD_NUMBER: 1
+        MARKETING_VERSION: 1.0.0
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        # DEVELOPMENT_TEAM: 4RZ24YRQ42
+    info:
+      path: DJSystemiOS/Info.plist
+      properties:
+        UISupportedInterfaceOrientations~iphone: [UIInterfaceOrientationPortrait]
+        UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait]
+        UILaunchStoryboardName: LaunchScreen
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+          UISceneConfigurations:
+            UIWindowSceneSessionRoleApplication:
+              - UISceneConfigurationName: Default Configuration
+                UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
+        CFBundleDisplayName: $(BUNDLE_DISPLAY_NAME)
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_BUILD_NUMBER)
+        CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
+    dependencies:
+      - package: Moya
+      - package: PKHUD
+      - package: RswiftLibrary
+    preBuildScripts:
+      - path: ./Scripts/rswift.sh
+        name: R.Swift
+        inputFiles:
+          - $TEMP_DIR/rswift-lastrun
+        basedOnDependencyAnalysis: false
+        outputFiles:
+          - $(SRCROOT)/DJSystemiOS/Generated/R.generated.swift
+        shell: "/bin/zsh"
+      - path: ./Scripts/swiftlint.sh
+        name: SwiftLint
+        basedOnDependencyAnalysis: false
+        shell: "/bin/zsh"
+
+  DJSystemiOSTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: 13.0
+    sources: UnitTests
+    dependencies:
+      - target: DJSystemiOS
+    settings:
+      INFOPLIST_FILE: DJSystemiOS/Info.plist
+      LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
+      LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]: "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks"
