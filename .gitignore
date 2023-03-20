@@ -91,3 +91,4 @@ iOSInjectionProject/
 
 R.generated.swift
 *.xcodeproj/
+.DS_Store
