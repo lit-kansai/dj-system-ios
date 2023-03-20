@@ -23,6 +23,7 @@ class SearchMusicViewController: UIViewController {
         searchMusicTableView.register(UINib(nibName: "SearchMusicListTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
     
         searchMusicSearchBar.barTintColor = UIColor(hex: "1E1E1E")
+        searchMusicSearchBar.backgroundColor = UIColor(hex: "1E1E1E")
         searchMusicSearchBar.searchTextField.textColor = UIColor(hex: "EBEBF5", alpha: 0.6)
     }
 
@@ -34,7 +35,7 @@ class SearchMusicViewController: UIViewController {
                 return decoder
             }()
             let encodingSearchWord = searchWord!.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-            let requestUrl = URL(string: "https://dj-api.life-is-tech.com/room/test/music/search?q=\(encodingSearchWord!))")!
+            let requestUrl = URL(string: "https://dj-api.life-is-tech.com/room/sample-gassi/music/search?q=\(encodingSearchWord!))")!
             let urlRequest = URLRequest(url: requestUrl)
             let (data, _) = try await URLSession.shared.data(for: urlRequest)
             let music = try! decoder.decode([Music].self, from: data)
