@@ -12,3 +12,9 @@ setup:
 	make xcodegen
 	make open
 
+mint:
+	git clone --branch 0.16.0 https://github.com/yonaskolb/Mint
+	cd Mint
+	make
+	cd ..
+	rm -rf Mint
