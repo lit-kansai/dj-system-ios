@@ -1,27 +1,28 @@
-//
-//  SearchMusicListTableViewCell.swift
-//  DJSystemiOS
-//
-//  Created by Atsuhiro Muroyama on 2023/03/13.
-//
-
 import UIKit
 
 class SearchMusicListTableViewCell: UITableViewCell {
-    @IBOutlet var haikeiImageView: UIImageView!
-    @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var musicNameLabel: UILabel!
-    @IBOutlet weak var artistNameLabel: UILabel!
-
-
+    @IBOutlet private var haikeiImageView: UIImageView!
+    @IBOutlet private var thumbnailImageView: UIImageView!
+    @IBOutlet private var musicNameLabel: UILabel!
+    @IBOutlet private var artistNameLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         musicNameLabel.textColor = UIColor(hex: "FAFAFA")
         artistNameLabel.textColor = UIColor(hex: "A6A6A6")
+    }
+    
+    func setData(music: [Music], indexpath: Int) {
+        musicNameLabel.text = music[indexpath].name
+        artistNameLabel.text = music[indexpath].artists
+        haikeiImageView.backgroundColor = UIColor(hex: "1E1E1E")
+        Task {
+            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: music[indexpath].thumbnail))
+            thumbnailImageView.image = UIImage(data: imageData)
+        }
     }
 }
