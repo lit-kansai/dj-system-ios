@@ -61,7 +61,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="artistNameLabel" destination="7AO-Ya-AgU" id="TjK-pN-NGg"/>
-                <outlet property="haikeiImageView" destination="wLW-ZX-szc" id="JlN-X5-lPz"/>
+                <outlet property="backgroundImageView" destination="wLW-ZX-szc" id="NgA-Ts-3WP"/>
                 <outlet property="musicNameLabel" destination="mX6-pa-9dR" id="k63-tJ-Hga"/>
                 <outlet property="thumbnailImageView" destination="vXP-nV-eMR" id="RUB-yM-1QG"/>
             </connections>

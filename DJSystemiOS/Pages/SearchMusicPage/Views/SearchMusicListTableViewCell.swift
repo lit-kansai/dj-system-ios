@@ -1,7 +1,7 @@
 import UIKit
 
 class SearchMusicListTableViewCell: UITableViewCell {
-    @IBOutlet private var haikeiImageView: UIImageView!
+    @IBOutlet private var backgroundImageView: UIImageView!
     @IBOutlet private var thumbnailImageView: UIImageView!
     @IBOutlet private var musicNameLabel: UILabel!
     @IBOutlet private var artistNameLabel: UILabel!
@@ -16,12 +16,12 @@ class SearchMusicListTableViewCell: UITableViewCell {
         artistNameLabel.textColor = UIColor(hex: "A6A6A6")
     }
     
-    func setData(music: [Music], indexpath: Int) {
-        musicNameLabel.text = music[indexpath].name
-        artistNameLabel.text = music[indexpath].artists
-        haikeiImageView.backgroundColor = UIColor(hex: "1E1E1E")
+    func setData(music: Music) {
+        musicNameLabel.text = music.name
+        artistNameLabel.text = music.artists
+        backgroundImageView.backgroundColor = UIColor(hex: "1E1E1E")
         Task {
-            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: music[indexpath].thumbnail))
+            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: music.thumbnail))
             thumbnailImageView.image = UIImage(data: imageData)
         }
     }

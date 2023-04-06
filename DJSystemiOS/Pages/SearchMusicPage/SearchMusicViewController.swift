@@ -90,7 +90,7 @@ extension SearchMusicViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SearchMusicListTableViewCell
-        cell.setData(music: musics, indexpath: indexPath.row)
+        cell.setData(music: musics[indexPath.row])
         return cell
     }
 }
