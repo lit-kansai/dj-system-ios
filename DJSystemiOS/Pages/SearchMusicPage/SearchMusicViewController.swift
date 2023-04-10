@@ -1,8 +1,9 @@
+import SnapKit
 import UIKit
 
 class SearchMusicViewController: UIViewController {
-    @IBOutlet private weak var searchMusicTableView: UITableView!
-    @IBOutlet private weak var searchMusicSearchBar: UISearchBar!
+    let searchMusicSearchBar = UISearchBar()
+    let searchMusicTableView = UITableView()
 
     var searchWord: String = ""
 
@@ -18,10 +19,27 @@ class SearchMusicViewController: UIViewController {
         searchMusicTableView.delegate = self
         searchMusicTableView.dataSource = self
 
+        setUpUI()
         searchMusicTableView.register(UINib(nibName: "SearchMusicListTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
+    }
+
+    func setUpUI() {
         searchMusicSearchBar.barTintColor = UIColor(hex: "1E1E1E")
         searchMusicSearchBar.backgroundColor = UIColor(hex: "1E1E1E")
         searchMusicSearchBar.searchTextField.textColor = UIColor(hex: "EBEBF5", alpha: 0.6)
+        view.addSubview(searchMusicSearchBar)
+        searchMusicSearchBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+        }
+
+        view.addSubview(searchMusicTableView)
+        searchMusicTableView.snp.makeConstraints {
+            $0.top.equalTo(searchMusicSearchBar.snp.bottom)
+            $0.width.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
     }
 
     func fetchSearchedMusic() async throws -> ([Music]) {
