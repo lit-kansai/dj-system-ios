@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 protocol HomePageControllerProtocol: AnyObject {
-    func searchRoom(byId id: String) async
+    func searchRoom(byId id: String) async throws -> Bool
     var state: HomePageView.DataSource { get set }
 }
 
@@ -23,7 +23,6 @@ final class HomePageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         let homePage = HomePageView(controller: self)
         let hostingVC = UIHostingController(rootView: homePage)
         addChild(hostingVC)
@@ -31,15 +30,19 @@ final class HomePageViewController: UIViewController {
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
     }
-
 }
 
 extension HomePageViewController: HomePageControllerProtocol {
-    func searchRoom(byId id: String) async {
+    func searchRoom(byId id: String) async throws -> Bool {
         let roomOverview = try! await roomAPI.getRoom(id: id)
-        Task.detached { @MainActor [state] in
-            state.currentRoom = roomOverview
+        print(roomOverview)
+        print(roomOverview.id.isEmpty)
+        if !roomOverview.id.isEmpty {
+            Task.detached { @MainActor [state] in
+                state.currentRoom = roomOverview
+            }
         }
+        return roomOverview.id.isEmpty
     }
 }
 

@@ -12,9 +12,14 @@ extension Room.API: GetRoomAPIProtocol {
                 switch result {
                 case let .success(response):
                     do {
-                        let filteredResponse = try response.filterSuccessfulStatusCodes()
-                        let roomOverview = try filteredResponse.map(RoomOverview.self)
-                        continuation.resume(returning: roomOverview)
+                        // Status Code 200...299 の判定
+                        if response.statusCode < 200 || response.statusCode >= 300 {
+                            continuation.resume(returning: RoomOverview(id: "", name: "", description: ""))
+                        } else {
+                            let filteredResponse = try response.filterSuccessfulStatusCodes()
+                            let roomOverview = try filteredResponse.map(RoomOverview.self)
+                            continuation.resume(returning: roomOverview)
+                        }
                     } catch let error {
                         print(error.localizedDescription)
                         continuation.resume(throwing: error)
