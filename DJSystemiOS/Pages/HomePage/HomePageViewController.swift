@@ -34,15 +34,19 @@ final class HomePageViewController: UIViewController {
 
 extension HomePageViewController: HomePageControllerProtocol {
     func searchRoom(byId id: String) async throws -> Bool {
-        let roomOverview = try! await roomAPI.getRoom(id: id)
-        print(roomOverview)
-        print(roomOverview.id.isEmpty)
-        if !roomOverview.id.isEmpty {
-            Task.detached { @MainActor [state] in
-                state.currentRoom = roomOverview
+        var idIsEmpty : Bool = true
+        do {
+            let roomOverview = try await roomAPI.getRoom(id: id)
+            if !roomOverview.id.isEmpty {
+                Task.detached { @MainActor [state] in
+                    state.currentRoom = roomOverview
+                }
             }
+            idIsEmpty = roomOverview.id.isEmpty
+        } catch {
+            print(error.localizedDescription)
         }
-        return roomOverview.id.isEmpty
+        return idIsEmpty
     }
 }
 

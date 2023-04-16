@@ -21,11 +21,9 @@ extension Room.API: GetRoomAPIProtocol {
                             continuation.resume(returning: roomOverview)
                         }
                     } catch let error {
-                        print(error.localizedDescription)
                         continuation.resume(throwing: error)
                     }
                 case let .failure(error):
-                    print(error.localizedDescription)
                     continuation.resume(throwing: error)
                 }
             }

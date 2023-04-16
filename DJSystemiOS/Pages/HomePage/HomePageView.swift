@@ -13,23 +13,24 @@ struct HomePageView: View {
         VStack {
 
             Text("ルームを探す")
-                .tint(.black)
+                .foregroundColor(Color(.label))
                 .font(.system(size: 34, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
 
             Text("IDから探す")
-                .tint(.black)
+                .foregroundColor(Color(.label))
                 .font(.system(size: 24, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
 
             Text("IDを入力してルームを検索します")
-                .tint(.black)
+                .foregroundColor(Color(.label))
                 .font(.body)
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             TextField("部屋を検索しよう！", text: $dataSource.searchQuery)
+                .foregroundColor(Color(.label))
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, minHeight: 42)
                 .overlay(
@@ -40,7 +41,17 @@ struct HomePageView: View {
 
             Button("検索する") {
                 Task {
-                    dataSource.showingAlert = ((try! await controller?.searchRoom(byId: dataSource.searchQuery)) != nil)
+                    do {
+                        dataSource.showingAlert = await (try controller?.searchRoom(byId: dataSource.searchQuery))!
+                        if dataSource.showingAlert {
+                            dataSource.currentRoom = RoomOverview(id: "", name: "", description: "")
+                            dataSource.resultState = false
+                        } else {
+                            dataSource.resultState = true
+                        }
+                    } catch {
+                        print(error.localizedDescription)
+                    }
                 }
             }
             .alert("ルームが見つかりませんでした", isPresented: $dataSource.showingAlert) {
@@ -52,14 +63,15 @@ struct HomePageView: View {
             }
             .frame(maxWidth: .infinity, minHeight: 42)
             .background(Color.pink)
-            .tint(.white)
+            .foregroundColor(Color(.white))
             .font(.system(size: 12, weight: .bold, design: .default))
             .cornerRadius(10)
 
-            if let currentRoom = dataSource.currentRoom {
-                Text("id: \(currentRoom.id)")
-                Text("name: \(currentRoom.name)")
-                Text("description: \(currentRoom.description)")
+            // Roomが見つかったかの判定
+            if dataSource.resultState {
+                Text("Roomが見つかりました！")
+            } else {
+                Text("")
             }
         }
         .padding(16)
@@ -74,5 +86,6 @@ extension HomePageView {
         @Published var searchQuery = "sample-gassi"
         @Published var currentRoom: RoomOverview?
         @Published var showingAlert = false
+        @Published var resultState = false
     }
 }
