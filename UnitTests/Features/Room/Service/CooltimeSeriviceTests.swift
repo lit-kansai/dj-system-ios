@@ -1,35 +1,58 @@
-//
-//  CooltimeSeriviceTests.swift
-//  DJSystemiOSTests
-//
-//  Created by Tomoya Tanaka on 2023/04/14.
-//
-
 import XCTest
+@testable import DJSystemiOS
+
+final class SuccessfulCooltimeDataSource: CooltimeDataSourceProtocol {
+    func fetch() throws -> TimeInterval {
+        return Date().timeIntervalSince1970 + 1000
+    }
+    func remove() {}
+    func set(unixTime: TimeInterval) {}
+}
+
+final class FailableCooltimeDataSource: CooltimeDataSourceProtocol {
+    func fetch() throws -> TimeInterval {
+        return Date().timeIntervalSince1970 - 1000
+    }
+    func remove() {}
+    func set(unixTime: TimeInterval) {}
+}
 
 final class CooltimeSeriviceTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    override func setUpWithError() throws {}
+    override func tearDownWithError() throws {}
+    
+    func testFormatTime() throws {
+        let cooltimeSerivce = CooltimeService(dataSource: SuccessfulCooltimeDataSource())
+        let formattedTime1 = cooltimeSerivce.formatTime(hours: 0, minutes: 45, seconds: 15)
+        XCTAssertEqual(formattedTime1, "45:15")
+        
+        let formattedTime2 = cooltimeSerivce.formatTime(hours: 0, minutes: 45, seconds: 5)
+        XCTAssertEqual(formattedTime2, "45:05")
+        
+        let formattedTime3 = cooltimeSerivce.formatTime(hours: 1, minutes: 30, seconds: 30)
+        XCTAssertEqual(formattedTime3, "01:30:30")
+        
+        let formattedTime4 = cooltimeSerivce.formatTime(hours: 1, minutes: 0, seconds: 0)
+        XCTAssertEqual(formattedTime4, "01:00:00")
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testCalculateTimeLeft() {
+        let cooltimeSerivce = CooltimeService(dataSource: SuccessfulCooltimeDataSource())
+        let currentTime = Int(Date().timeIntervalSince1970)
+        let timeToAdd: Int = 2 * 3_600 + 30 * 60 + 10
+        let futureCooltime = currentTime + timeToAdd
+        let (hours, minutes, seconds) = cooltimeSerivce.calculateTimeLeft(cooltime: futureCooltime)
+        
+        print(futureCooltime)
+        XCTAssertEqual(hours, 2)
+        XCTAssertEqual(minutes, 30)
+        XCTAssertEqual(seconds, 10)
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func testHasExpired() {
+        let successfullCooltimeService = CooltimeService(dataSource: SuccessfulCooltimeDataSource())
+        let failableCooltimeService = CooltimeService(dataSource: FailableCooltimeDataSource())
+        XCTAssertFalse(successfullCooltimeService.hasExpired)
+        XCTAssertTrue(failableCooltimeService.hasExpired)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-
 }
