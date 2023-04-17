@@ -108,7 +108,7 @@ targets:
   DJSystemiOSTests:
     type: bundle.unit-test
     platform: iOS
-    deploymentTarget: 13.0
+    deploymentTarget: 15.0
     sources: UnitTests
     dependencies:
       - target: DJSystemiOS
