@@ -1,8 +1,15 @@
-//
-//  CooltimeDataSourceError.swift
-//  DJSystemiOS
-//
-//  Created by Tomoya Tanaka on 2023/04/14.
-//
-
 import Foundation
+
+enum CooltimeDataSourceError: LocalizedError {
+    case wrongValueType
+    case dataNotFound
+
+    var errorDescription: String? {
+        switch self {
+        case .wrongValueType:
+            return "wrong type data is stored for this key"
+        case .dataNotFound:
+            return "data is not found for this key."
+        }
+    }
+}
