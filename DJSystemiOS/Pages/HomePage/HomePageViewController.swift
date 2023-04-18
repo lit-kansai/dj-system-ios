@@ -1,5 +1,6 @@
 import SwiftUI
 import UIKit
+import PKHUD
 
 protocol HomePageControllerProtocol: AnyObject {
     func searchRoom(byId id: String) async throws
@@ -35,6 +36,8 @@ final class HomePageViewController: UIViewController {
 extension HomePageViewController: HomePageControllerProtocol {
     func searchRoom(byId id: String) async throws {
         do {
+            // ローディング開始
+            HUD.show(.progress)
             // Roomの存在確認
             let roomOverview = try await roomAPI.getRoom(id: id)
             // RoomIdが空でないとき
@@ -47,6 +50,13 @@ extension HomePageViewController: HomePageControllerProtocol {
                     // アラートを非表示する
                     state.shouldShowAlert = false
                 }
+                let rootViewController = RoomOverviewViewController()
+                let navigationController = UINavigationController(rootViewController: rootViewController)
+                let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
+                windowScene?.keyWindow?.rootViewController = rootViewController
+                windowScene?.keyWindow?.makeKeyAndVisible()
+                // ローディング終了
+                HUD.flash(.success, delay: 1.0)
             // RoomIdがからの時(""の時)
             } else {
                 Task.detached { @MainActor [state] in
@@ -57,6 +67,8 @@ extension HomePageViewController: HomePageControllerProtocol {
                     // アラートを表示する
                     state.shouldShowAlert = true
                 }
+                // ローディング終了
+                HUD.hide()
             }
         } catch {
             print(error.localizedDescription)
