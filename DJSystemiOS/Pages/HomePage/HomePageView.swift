@@ -83,7 +83,6 @@ struct HomePageView: View {
 
 extension HomePageView {
     class DataSource: ObservableObject {
-        @Published var searchQuery = "sample-gassi"
         @Published var currentRoom: RoomOverview?
         @Published var showingAlert = false
         @Published var resultState = false
