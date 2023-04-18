@@ -50,11 +50,7 @@ extension HomePageViewController: HomePageControllerProtocol {
                     // アラートを非表示する
                     state.shouldShowAlert = false
                 }
-                let rootViewController = RoomOverviewViewController()
-                let navigationController = UINavigationController(rootViewController: rootViewController)
-                let windowScene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene
-                windowScene?.keyWindow?.rootViewController = rootViewController
-                windowScene?.keyWindow?.makeKeyAndVisible()
+                self.navigationController?.pushViewController(RoomOverviewViewController(), animated: true)
                 // ローディング終了
                 HUD.flash(.success, delay: 1.0)
             // RoomIdがからの時(""の時)
