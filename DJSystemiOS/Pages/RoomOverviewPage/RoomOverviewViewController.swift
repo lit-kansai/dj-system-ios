@@ -11,7 +11,6 @@ class RoomOverviewViewController: UIViewController {
         view.addSubview(hostingVC.view)
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
-        self.navigationController?.pushViewController(ViewController(), animated: true)
     }
 
 }
