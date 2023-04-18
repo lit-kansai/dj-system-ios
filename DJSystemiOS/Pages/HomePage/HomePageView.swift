@@ -41,20 +41,10 @@ struct HomePageView: View {
 
             Button("検索する") {
                 Task {
-                    do {
-                        dataSource.showingAlert = await (try controller?.searchRoom(byId: dataSource.searchQuery))!
-                        if dataSource.showingAlert {
-                            dataSource.currentRoom = RoomOverview(id: "", name: "", description: "")
-                            dataSource.resultState = false
-                        } else {
-                            dataSource.resultState = true
-                        }
-                    } catch {
-                        print(error.localizedDescription)
-                    }
+                    await (try controller?.searchRoom(byId: dataSource.searchQuery))
                 }
             }
-            .alert("ルームが見つかりませんでした", isPresented: $dataSource.showingAlert) {
+            .alert("ルームが見つかりませんでした", isPresented: $dataSource.shouldShowAlert) {
                 Button("OK") {
                     // 了解ボタンが押された時の処理
                 }
@@ -68,7 +58,7 @@ struct HomePageView: View {
             .cornerRadius(10)
 
             // Roomが見つかったかの判定
-            if dataSource.resultState {
+            if dataSource.showResultText {
                 Text("Roomが見つかりました！")
             } else {
                 Text("")
@@ -83,8 +73,9 @@ struct HomePageView: View {
 
 extension HomePageView {
     class DataSource: ObservableObject {
+        @Published var searchQuery = ""
         @Published var currentRoom: RoomOverview?
-        @Published var showingAlert = false
-        @Published var resultState = false
+        @Published var shouldShowAlert = false
+        @Published var showResultText = false
     }
 }

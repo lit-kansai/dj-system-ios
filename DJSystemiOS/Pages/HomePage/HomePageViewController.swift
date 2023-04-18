@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 protocol HomePageControllerProtocol: AnyObject {
-    func searchRoom(byId id: String) async throws -> Bool
+    func searchRoom(byId id: String) async throws
     var state: HomePageView.DataSource { get set }
 }
 
@@ -33,20 +33,34 @@ final class HomePageViewController: UIViewController {
 }
 
 extension HomePageViewController: HomePageControllerProtocol {
-    func searchRoom(byId id: String) async throws -> Bool {
-        var idIsEmpty : Bool = true
+    func searchRoom(byId id: String) async throws {
         do {
+            // Roomの存在確認
             let roomOverview = try await roomAPI.getRoom(id: id)
+            // RoomIdが空でないとき
             if !roomOverview.id.isEmpty {
                 Task.detached { @MainActor [state] in
+                    // 取得したRoomOverviewを渡す
                     state.currentRoom = roomOverview
+                    // 表示結果を表示する
+                    state.showResultText = true
+                    // アラートを非表示する
+                    state.shouldShowAlert = false
+                }
+            // RoomIdがからの時(""の時)
+            } else {
+                Task.detached { @MainActor [state] in
+                    // 空のRoomOverviewを渡す
+                    state.currentRoom = RoomOverview(id: "", name: "", description: "")
+                    // 表示結果を非表示にする
+                    state.showResultText = false
+                    // アラートを表示する
+                    state.shouldShowAlert = true
                 }
             }
-            idIsEmpty = roomOverview.id.isEmpty
         } catch {
             print(error.localizedDescription)
         }
-        return idIsEmpty
     }
 }
 
