@@ -32,6 +32,6 @@ class RequestMusicViewController: UIViewController {
 
 extension RequestMusicViewController: RequestMusicViewControllerProtocol {
     func postMusic(nickname: String, message: String) async {
-        let data = try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: nickname, message: message, roomId: roomId))
+        try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: nickname, message: message, roomId: roomId))
     }
 }

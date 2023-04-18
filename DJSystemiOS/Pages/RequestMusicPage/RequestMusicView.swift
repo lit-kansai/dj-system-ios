@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RequestMusicView: View {
     weak var controller: RequestMusicViewControllerProtocol?
-    @State var nickname: String = ""
+    @State var radioName: String = ""
     @State var message: String = ""
     // roomIdとmusicは前の画面から受け取る
     var music: Music
@@ -56,11 +56,12 @@ struct RequestMusicView: View {
                             .fontWeight(.heavy)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ZStack(alignment: .leading) {
-                            if nickname.isEmpty {
+                            if radioName.isEmpty {
                                 Text("がっしー")
                                     .padding(10)
+                                    .foregroundColor(Color(white: 0.5))
                             }
-                            TextField("", text: $nickname)
+                            TextField("", text: $radioName)
                                 .padding(10)
                                 .border(.gray)
                         }
@@ -75,6 +76,7 @@ struct RequestMusicView: View {
                             if message.isEmpty {
                                 Text("がっしーだよー")
                                     .padding(10)
+                                    .foregroundColor(Color(white: 0.5))
                             }
                             TextField("", text: $message)
                                 .padding(10)
@@ -85,7 +87,7 @@ struct RequestMusicView: View {
                 Spacer()
                 Button(action: {
                     Task {
-                        await controller?.postMusic(nickname: nickname, message: message)
+                        await controller?.postMusic(nickname: radioName, message: message)
                     }
                 }, label: {
                     Text("リクエスト送る")
@@ -104,12 +106,12 @@ struct RequestMusicView: View {
     }
 }
 
-//struct RequestMusicView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            RequestMusicView(music: Music(id: "spotify:track:5m1i6hq7dmRlp3c1utE48L", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!), roomId: "sample-gassi")
-//                .navigationTitle("曲をリクエストする")
-//        }
-//
-//    }
-//}
+struct RequestMusicView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            RequestMusicView(music: Music(id: "spotify:track:5m1i6hq7dmRlp3c1utE48L", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!), roomId: "sample-gassi")
+                .navigationTitle("曲をリクエストする")
+        }
+        
+    }
+}
