@@ -87,7 +87,7 @@ struct RequestMusicView: View {
                 Spacer()
                 Button(action: {
                     Task {
-                        await controller?.postMusic(nickname: radioName, message: message)
+                        await controller?.postMusic(radioName: radioName, message: message)
                     }
                 }, label: {
                     Text("リクエスト送る")

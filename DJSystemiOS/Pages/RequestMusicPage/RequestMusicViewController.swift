@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 protocol RequestMusicViewControllerProtocol: AnyObject {
-    func postMusic(nickname: String, message: String) async
+    func postMusic(radioName: String, message: String) async
 }
 
 class RequestMusicViewController: UIViewController {
@@ -31,7 +31,7 @@ class RequestMusicViewController: UIViewController {
 }
 
 extension RequestMusicViewController: RequestMusicViewControllerProtocol {
-    func postMusic(nickname: String, message: String) async {
-        try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: nickname, message: message, roomId: roomId))
+    func postMusic(radioName: String, message: String) async {
+        try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: radioName, message: message, roomId: roomId))
     }
 }
