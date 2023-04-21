@@ -2,11 +2,15 @@ import SwiftUI
 
 struct RequestMusicView: View {
     weak var controller: RequestMusicViewControllerProtocol?
-    @State var radioName: String = ""
-    @State var message: String = ""
-    // roomIdとmusicは前の画面から受け取る
-    var music: Music
-    var roomId: String
+    @ObservedObject var dataSource: DataSource
+    let music: Music
+
+    init(controller: RequestMusicViewControllerProtocol, music: Music) {
+        self.controller = controller
+        self.dataSource = controller.state
+        self.music = music
+    }
+
     var body: some View {
         VStack {
             VStack {
@@ -56,12 +60,12 @@ struct RequestMusicView: View {
                             .fontWeight(.heavy)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ZStack(alignment: .leading) {
-                            if radioName.isEmpty {
+                            if dataSource.radioName.isEmpty {
                                 Text("がっしー")
                                     .padding(10)
                                     .foregroundColor(Color(white: 0.5))
                             }
-                            TextField("", text: $radioName)
+                            TextField("", text: $dataSource.radioName)
                                 .padding(10)
                                 .border(.gray)
                         }
@@ -73,12 +77,12 @@ struct RequestMusicView: View {
                             .fontWeight(.heavy)
                             .frame(maxWidth: .infinity, alignment: .leading)
                         ZStack(alignment: .leading) {
-                            if message.isEmpty {
+                            if dataSource.message.isEmpty {
                                 Text("がっしーだよー")
                                     .padding(10)
                                     .foregroundColor(Color(white: 0.5))
                             }
-                            TextField("", text: $message)
+                            TextField("", text: $dataSource.message)
                                 .padding(10)
                                 .border(.gray)
                         }
@@ -87,7 +91,7 @@ struct RequestMusicView: View {
                 Spacer()
                 Button(action: {
                     Task {
-                        await controller?.postMusic(radioName: radioName, message: message)
+                        await controller?.postMusic(radioName: dataSource.radioName, message: dataSource.message)
                     }
                 }, label: {
                     Text("リクエスト送る")
@@ -106,12 +110,19 @@ struct RequestMusicView: View {
     }
 }
 
+extension RequestMusicView {
+    class DataSource: ObservableObject {
+        @Published var radioName: String = ""
+        @Published var message: String = ""
+    }
+}
+
 struct RequestMusicView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-            RequestMusicView(music: Music(id: "spotify:track:5m1i6hq7dmRlp3c1utE48L", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!), roomId: "sample-gassi")
+            RequestMusicView(controller: RequestMusicViewController(roomId: "sample-gassi", music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!)), music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!))
                 .navigationTitle("曲をリクエストする")
         }
-        
+
     }
 }

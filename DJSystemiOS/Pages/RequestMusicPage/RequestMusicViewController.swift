@@ -1,11 +1,14 @@
+import PKHUD
 import SwiftUI
 import UIKit
 
 protocol RequestMusicViewControllerProtocol: AnyObject {
     func postMusic(radioName: String, message: String) async
+    var state: RequestMusicView.DataSource { get set }
 }
 
 class RequestMusicViewController: UIViewController {
+    @ObservedObject var state: RequestMusicView.DataSource = .init()
     var roomId: String
     var music: Music
 
@@ -21,7 +24,7 @@ class RequestMusicViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let requestMusicView = RequestMusicView(controller: self, music: music, roomId: roomId)
+        let requestMusicView = RequestMusicView(controller: self, music: music)
         let hostingVC = UIHostingController(rootView: requestMusicView)
         addChild(hostingVC)
         view.addSubview(hostingVC.view)
@@ -32,6 +35,12 @@ class RequestMusicViewController: UIViewController {
 
 extension RequestMusicViewController: RequestMusicViewControllerProtocol {
     func postMusic(radioName: String, message: String) async {
-        try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: radioName, message: message, roomId: roomId))
+        HUD.show(.progress)
+        let result = try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: radioName, message: message, roomId: roomId))
+        if result.ok {
+            HUD.flash(.success, delay: 1.0)
+        } else {
+            HUD.flash(.error, delay: 1.0)
+        }
     }
 }
