@@ -50,7 +50,7 @@ extension HomePageViewController: HomePageControllerProtocol {
                     // アラートを非表示する
                     state.shouldShowAlert = false
                 }
-                self.navigationController?.pushViewController(RoomOverviewViewController(), animated: true)
+                self.navigationController?.pushViewController(RoomOverviewViewController(roomOverview: roomOverview), animated: true)
                 // ローディング終了
                 HUD.flash(.success, delay: 1.0)
             // RoomIdがからの時(""の時)
