@@ -23,7 +23,7 @@ class RequestMusicViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let requestMusicView = RequestMusicView(controller: self)
+        let requestMusicView = RequestMusicView(controller: self, music: music, roomId: roomId)
         let hostingVC = UIHostingController(rootView: requestMusicView)
         addChild(hostingVC)
         view.addSubview(hostingVC.view)

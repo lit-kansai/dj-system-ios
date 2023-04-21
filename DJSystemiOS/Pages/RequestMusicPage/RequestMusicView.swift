@@ -3,13 +3,16 @@ import SwiftUI
 struct RequestMusicView: View {
     weak var controller: RequestMusicViewControllerProtocol?
     @ObservedObject var dataSource: DataSource
-    // roomIdとmusicは前の画面から受け取る
-    var music: Music
-    var roomId: String
-    init(controller: RequestMusicViewControllerProtocol) {
+    let music: Music
+    let roomId: String
+
+    init(controller: RequestMusicViewControllerProtocol, music: Music, roomId: String) {
         self.controller = controller
         self.dataSource = controller.state
+        self.music = music
+        self.roomId = roomId
     }
+
     var body: some View {
         VStack {
             VStack {
