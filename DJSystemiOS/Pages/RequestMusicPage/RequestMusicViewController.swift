@@ -3,9 +3,11 @@ import UIKit
 
 protocol RequestMusicViewControllerProtocol: AnyObject {
     func postMusic(radioName: String, message: String) async
+    var state: RequestMusicView.DataSource{ get set }
 }
 
 class RequestMusicViewController: UIViewController {
+    @ObservedObject var state: RequestMusicView.DataSource = .init()
     var roomId: String
     var music: Music
 
@@ -21,7 +23,7 @@ class RequestMusicViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let requestMusicView = RequestMusicView(controller: self, music: music, roomId: roomId)
+        let requestMusicView = RequestMusicView(controller: self)
         let hostingVC = UIHostingController(rootView: requestMusicView)
         addChild(hostingVC)
         view.addSubview(hostingVC.view)
