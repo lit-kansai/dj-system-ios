@@ -4,13 +4,11 @@ struct RequestMusicView: View {
     weak var controller: RequestMusicViewControllerProtocol?
     @ObservedObject var dataSource: DataSource
     let music: Music
-    let roomId: String
 
-    init(controller: RequestMusicViewControllerProtocol, music: Music, roomId: String) {
+    init(controller: RequestMusicViewControllerProtocol, music: Music) {
         self.controller = controller
         self.dataSource = controller.state
         self.music = music
-        self.roomId = roomId
     }
 
     var body: some View {
@@ -119,12 +117,12 @@ extension RequestMusicView {
     }
 }
 
-//struct RequestMusicView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NavigationView {
-//            RequestMusicView()
-//                .navigationTitle("曲をリクエストする")
-//        }
-//
-//    }
-//}
+struct RequestMusicView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationView {
+            RequestMusicView(controller: RequestMusicViewController(roomId: "sample-gassi", music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!)), music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!))
+                .navigationTitle("曲をリクエストする")
+        }
+
+    }
+}
