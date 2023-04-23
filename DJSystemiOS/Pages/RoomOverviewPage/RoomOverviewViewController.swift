@@ -6,7 +6,7 @@ protocol RoomOverviewControllerProtocol: AnyObject {
     var state: RoomOverviewPageView.DataSource { get set }
 }
 
-class RoomOverviewViewController: UIViewController, RoomOverviewControllerProtocol {
+class RoomOverviewViewController: UIViewController {
     @ObservedObject var state: RoomOverviewPageView.DataSource = .init()
 
     /// ルームの概要
@@ -30,9 +30,10 @@ class RoomOverviewViewController: UIViewController, RoomOverviewControllerProtoc
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
     }
+}
 
+extension RoomOverviewViewController: RoomOverviewControllerProtocol {
     func toSearchMusicPage() {
         self.navigationController?.pushViewController(SearchMusicViewController(), animated: true)
     }
-
 }
