@@ -29,7 +29,6 @@ class RoomOverviewViewController: UIViewController, RoomOverviewControllerProtoc
         view.addSubview(hostingVC.view)
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
-        print(roomOverviewPageView.$dataSource.$name)
     }
 
     func toSearchMusicPage() {
