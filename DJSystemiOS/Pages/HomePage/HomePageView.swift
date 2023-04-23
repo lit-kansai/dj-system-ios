@@ -30,6 +30,7 @@ struct HomePageView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             TextField("部屋を検索しよう！", text: $dataSource.searchQuery)
+                .autocapitalization(.none)
                 .foregroundColor(Color(.label))
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, minHeight: 42)
