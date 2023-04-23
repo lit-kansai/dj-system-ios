@@ -112,6 +112,5 @@ struct RequestMusicView_Previews: PreviewProvider {
             RequestMusicView(music: Music(id: "spotify:track:5m1i6hq7dmRlp3c1utE48L", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!), roomId: "sample-gassi")
                 .navigationTitle("曲をリクエストする")
         }
-        
     }
 }
