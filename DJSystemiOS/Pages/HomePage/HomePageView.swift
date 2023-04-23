@@ -30,6 +30,7 @@ struct HomePageView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
 
             TextField("部屋を検索しよう！", text: $dataSource.searchQuery)
+                .autocapitalization(.none)
                 .foregroundColor(Color(.label))
                 .padding(.horizontal, 16)
                 .frame(maxWidth: .infinity, minHeight: 42)
@@ -39,10 +40,14 @@ struct HomePageView: View {
                 )
                 .padding(.bottom)
 
-            Button("検索する") {
+            Button {
                 Task {
                     await (try controller?.searchRoom(byId: dataSource.searchQuery))
                 }
+            } label: {
+                // ボタンのタップ領域をここで指定
+                Text("検索する")
+                    .frame(maxWidth: .infinity, minHeight: 42)
             }
             .alert("ルームが見つかりませんでした", isPresented: $dataSource.shouldShowAlert) {
                 Button("OK") {
@@ -51,7 +56,6 @@ struct HomePageView: View {
             } message: {
                 Text("IDが間違っていないか確認してください")
             }
-            .frame(maxWidth: .infinity, minHeight: 42)
             .background(Color.pink)
             .foregroundColor(Color(.white))
             .font(.system(size: 12, weight: .bold, design: .default))
@@ -69,7 +73,6 @@ struct HomePageView: View {
         Spacer()
     }
 }
-
 
 extension HomePageView {
     class DataSource: ObservableObject {
