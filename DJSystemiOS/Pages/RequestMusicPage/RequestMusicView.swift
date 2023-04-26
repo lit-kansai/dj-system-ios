@@ -14,6 +14,10 @@ struct RequestMusicView: View {
     var body: some View {
         VStack {
             VStack {
+                Text("曲をリクエストする")
+                    .font(.largeTitle)
+                    .bold()
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("リクエストするルーム")
                     .font(.title)
                     .bold()
