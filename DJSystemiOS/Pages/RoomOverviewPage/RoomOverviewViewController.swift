@@ -7,7 +7,7 @@ protocol RoomOverviewControllerProtocol: AnyObject {
 }
 
 class RoomOverviewViewController: UIViewController {
-    @ObservedObject var state: RoomOverviewPageView.DataSource = .init()
+    @ObservedObject var state: RoomOverviewPageView.DataSource
 
     /// ルームの概要
     private let roomOverview: RoomOverview
@@ -18,6 +18,7 @@ class RoomOverviewViewController: UIViewController {
 
     init(roomOverview: RoomOverview) {
         self.roomOverview = roomOverview
+        self.state = .init(name: roomOverview.name, description: roomOverview.description)
         super.init(nibName: nil, bundle: nil)
     }
 

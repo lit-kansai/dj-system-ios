@@ -13,13 +13,13 @@ struct RoomOverviewPageView: View {
 
     var body: some View {
         VStack {
-            Text(controller?.state.name ?? "")
+            Text(controller?.state.name ?? "sample-name")
                 .foregroundColor(Color(.label))
                 .font(.system(size: 34, weight: .bold, design: .default))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.bottom)
 
-            Text(controller?.state.description ?? "")
+            Text(controller?.state.description ?? "サンプルの説明文")
                 .foregroundColor(Color(.label))
                 .font(.body)
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -47,7 +47,19 @@ struct RoomOverviewPageView: View {
 
 extension RoomOverviewPageView {
     class DataSource: ObservableObject {
-        @Published var name = ""
-        @Published var description = ""
+        @Published var name: String = ""
+        @Published var description: String = ""
+        init(name: String = "", description: String = "") {
+            self.name = name
+            self.description = description
+        }
+    }
+}
+
+struct RoomOverviewPageView_Previews: PreviewProvider {
+    static var previews: some View {
+        VStack {
+            RoomOverviewPageView(controller: RoomOverviewViewController(roomOverview: RoomOverview(id: "sample-gassi", name: "sample-gassi", description: "サンプルの部屋")))
+        }
     }
 }

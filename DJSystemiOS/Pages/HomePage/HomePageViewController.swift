@@ -1,6 +1,6 @@
+import PKHUD
 import SwiftUI
 import UIKit
-import PKHUD
 
 protocol HomePageControllerProtocol: AnyObject {
     func searchRoom(byId id: String) async throws
@@ -52,15 +52,11 @@ extension HomePageViewController: HomePageControllerProtocol {
                 }
                 // 遷移先のRoomOverViewController
                 let roomOverviewController = RoomOverviewViewController(roomOverview: roomOverview)
-                // 遷移先にroomOverviewのnameの値を渡す
-                roomOverviewController.state.name = roomOverview.name
-                // 遷移先にroomOverviewのdescriptionの値を渡す
-                roomOverviewController.state.description = roomOverview.description
                 // 画面遷移
                 self.navigationController?.pushViewController(roomOverviewController, animated: true)
                 // ローディング終了
-                HUD.flash(.success, delay: 1.0)
-            // RoomIdがからの時(""の時)
+                HUD.hide()
+            // RoomIdが空の時(""の時)
             } else {
                 Task.detached { @MainActor [state] in
                     // 空のRoomOverviewを渡す
