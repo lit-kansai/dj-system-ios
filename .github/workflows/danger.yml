@@ -16,6 +16,7 @@ jobs:
     - name: Install SwiftLint
       run: |
         brew update
+        rm -f /usr/local/bin/swiftlint
         brew install swiftlint
 
     - name: Set up Node.js
