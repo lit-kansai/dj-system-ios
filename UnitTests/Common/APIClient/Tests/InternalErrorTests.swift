@@ -34,7 +34,6 @@ class APIClientInternalErrorTests: XCTestCase {
         case .success:
             XCTFail("Expected an encode error")
         case .failure(let error):
-            print(String(reflecting: error))
             if case .internalError(let internalError) = error, case .failedToEncodeData = internalError {
                 XCTAssertNotNil(internalError)
             } else {
