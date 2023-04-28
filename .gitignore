@@ -90,5 +90,15 @@ fastlane/test_output
 iOSInjectionProject/
 
 R.generated.swift
-*.xcodeproj/
+
+# Swift Package Manager
 .DS_Store
+/.build
+/Packages
+/*.xcodeproj
+xcuserdata/
+DerivedData/
+.swiftpm/config/registries.json
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+.netrc
+
