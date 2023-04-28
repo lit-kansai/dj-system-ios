@@ -55,7 +55,3 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: cat result.json
-      run: |
-        cat result.json
-
