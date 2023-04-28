@@ -11,15 +11,16 @@ let package = Package(
       .library(name: "DangerDeps", type: .dynamic, targets: ["DJSystemiOS-PRLinter"])
     ],
     dependencies: [
-        .package(url: "https://github.com/danger/swift.git", from: "3.0.0"),
+        .package(name: "danger-swift", url: "https://github.com/danger/swift.git", from: "3.0.0"),
+        .package(name: "DangerXcodeSummary", url: "https://github.com/f-meloni/danger-swift-xcodesummary", from: "1.0.0")
     ],
     targets: [
         .target(
             name: "DJSystemiOS-PRLinter",
             dependencies: [
-                .product(name: "Danger", package: "swift")
+                .product(name: "Danger", package: "danger-swift"),
+                .product(name: "DangerXCodeSummary", package: "DangerXcodeSummary")
             ]
-            // exclude: ["./Dangerfile.swift"]
         )
     ]
 )
