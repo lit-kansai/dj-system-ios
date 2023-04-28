@@ -1,9 +1,6 @@
 import Danger
 import DangerXCodeSummary
 
-
-let summary = XCodeSummary(filePath: "result.json")
-summary.report()
 let danger = Danger()
 let allSourceFiles = danger.git.modifiedFiles + danger.git.createdFiles
 
@@ -15,3 +12,6 @@ if allSourceFiles.first(where: { $0.fileType == .swift }) != nil {
 } else {
     message("No .swift file was added")
 }
+
+let summary = XCodeSummary(filePath: "result.json")
+summary.report()
