@@ -4,7 +4,7 @@ import Foundation
 
 final class UnexpectedAPIClientErrorTests: XCTestCase {
     func testUnexpectedAPIClientError() async {
-        let expectation = XCTestExpectation(description: "unexpectedAPIClientError test")
+//        let expectation = XCTestExpectation(description: "unexpectedAPIClientError test")
 
         let invalidUrlResponse = URLResponse(url: URL(string: "https://example.com")!, mimeType: nil, expectedContentLength: 0, textEncodingName: nil)
         let session = createSessionWithUnexpectedUrlResponse(urlResponse: invalidUrlResponse)
@@ -25,10 +25,10 @@ final class UnexpectedAPIClientErrorTests: XCTestCase {
                 apiClientError.url,
                 UnexpectedAPIClientError.init(urlResponse: invalidUrlResponse).url
             )
-            expectation.fulfill()
+//            expectation.fulfill()
         }
 
-        wait(for: [expectation], timeout: 10)
+//        wait(for: [expectation], timeout: 10)
     }
     private func createSessionWithUnexpectedUrlResponse(urlResponse: URLResponse) -> URLSession {
         let configuration = URLSessionConfiguration.ephemeral

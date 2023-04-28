@@ -1,7 +1,8 @@
 import Foundation
+@testable import DJSystemiOS
 
 class NSNetworkError: NSError {
-    init(error: NetworkError) {
+    init(error: DJSystemiOS.NetworkError) {
         let userInfo: [String: Any] = [
             NSLocalizedDescriptionKey: "Network error: \(error)"
         ]
