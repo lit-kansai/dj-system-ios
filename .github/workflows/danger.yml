@@ -1,0 +1,61 @@
+name: Danger CI
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  danger:
+    runs-on: macos-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Install SwiftLint
+      run: |
+        brew update
+        rm -f /usr/local/bin/swiftlint
+        brew install swiftlint
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Cache Node.js dependencies
+      uses: actions/cache@v2
+      with:
+        path: ~/.npm
+        key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-node-
+
+    - name: Install Danger-JS
+      run: npm install -g danger
+
+    - name: Cache Swift dependencies
+      uses: actions/cache@v2
+      with:
+        path: DJSystemiOS-PRLinter/.build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Install Danger and dependencies
+      run: |
+        cd DJSystemiOS-PRLinter
+        swift build
+
+    - name: Run Danger
+      run: |
+        cd DJSystemiOS-PRLinter
+        swift run danger-swift ci --cwd ../
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: cat result.json
+      run: |
+        cat result.json
+
