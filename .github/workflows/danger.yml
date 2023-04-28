@@ -1,0 +1,38 @@
+name: Danger CI
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  danger:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Swift
+      uses: fwal/setup-swift@v1
+      with:
+        swift-version: "5.3"
+
+    - name: Cache Swift dependencies
+      uses: actions/cache@v2
+      with:
+        path: .build
+        key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-spm-
+
+    - name: Install Danger and dependencies
+      run: swift build
+
+    - name: Run Danger
+      run: |
+        cd DJSystemiOS-PRLinter
+        swift run danger-swift ci --cwd ../
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
