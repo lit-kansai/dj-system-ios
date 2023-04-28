@@ -23,7 +23,6 @@ extension CompleteRequestViewController: CompleteRequestViewControllerProtocol {
     func goBack() {
         guard let navigationController = self.navigationController else { return }
         var navigationArray = navigationController.viewControllers
-        navigationArray.remove(at: navigationArray.count - 2)
-        self.navigationController?.viewControllers = navigationArray
+        navigationController.popToViewController(navigationArray[navigationArray.count - 4], animated: true)
     }
 }
