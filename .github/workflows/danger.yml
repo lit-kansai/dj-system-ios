@@ -13,7 +13,13 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
-    - uses: danger/danger-js@11.0.2
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 14
+
+    - name: Install Danger-JS
+      run: npm install -g danger
 
     - name: Cache Swift dependencies
       uses: actions/cache@v2
