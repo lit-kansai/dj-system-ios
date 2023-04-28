@@ -3,6 +3,7 @@ import DangerXCodeSummary
 
 
 let summary = XCodeSummary(filePath: "result.json")
+summary.report()
 let danger = Danger()
 let allSourceFiles = danger.git.modifiedFiles + danger.git.createdFiles
 
