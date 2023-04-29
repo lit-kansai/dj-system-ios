@@ -42,6 +42,7 @@ extension RequestMusicViewController: RequestMusicViewControllerProtocol {
             guard let navigationController = self.navigationController else { return }
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
         } else {
+            // ここでアラート出したい
             HUD.flash(.error, delay: 1.0)
         }
     }
