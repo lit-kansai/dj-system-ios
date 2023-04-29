@@ -2,8 +2,8 @@ import Foundation
 import UIKit
 
 protocol APIClientProtocol {
-    func get<Response: Codable>(from endpoint: Endpoint) async throws -> Result<Response, APIClientError>
-    func post<Response: Codable>(to endpoint: Endpoint, with data: Encodable) async throws -> Result<Response, APIClientError>
+    func get<T: Decodable>(from endpoint: Endpoint, dataType type: T.Type) async -> Result<T, APIClientError>
+    func post<T: Decodable>(to endpoint: Endpoint, with data: Encodable, responseDataType type: T.Type) async -> Result<T, APIClientError>
 }
 
 struct APIClient {
@@ -31,7 +31,8 @@ struct APIClient {
 }
 
 extension APIClient: APIClientProtocol {
-    func get<Response: Codable>(from endpoint: Endpoint) async -> Result<Response, APIClientError> {
+
+    func get<T: Decodable>(from endpoint: Endpoint, dataType type: T.Type) async -> Result<T, APIClientError> {
         let url = combineURL(baseURL, endpoint)
         let urlRequest = URLRequest(url: url)
         do {
@@ -41,7 +42,7 @@ extension APIClient: APIClientProtocol {
             */
             let apiResponseError = handleAPIResponse(data: data, urlResponse: urlResponse)
             if let apiResponseError { return .failure(apiResponseError) }
-            let responseData = try decoder.decode(Response.self, from: data)
+            let responseData = try decoder.decode(T.self, from: data)
             return .success(responseData)
         } catch let error as DecodingError {
             return .failure(.internalError(.failedToDecodeData(error: error)))
@@ -50,7 +51,7 @@ extension APIClient: APIClientProtocol {
         }
     }
 
-    func post<Response: Codable>(to endpoint: Endpoint, with data: Encodable) async -> Result<Response, APIClientError> {
+    func post<T: Decodable>(to endpoint: Endpoint, with data: Encodable, responseDataType type: T.Type) async -> Result<T, APIClientError> {
         do {
             let url = combineURL(baseURL, endpoint)
             let body = try encoder.encode(data)
@@ -58,7 +59,7 @@ extension APIClient: APIClientProtocol {
             let (data, urlResponse) = try await urlSession.data(for: urlRequest)
             let apiResponseError = handleAPIResponse(data: data, urlResponse: urlResponse)
             if let apiResponseError { return .failure(apiResponseError) }
-            let responseData = try decoder.decode(Response.self, from: data)
+            let responseData = try decoder.decode(T.self, from: data)
             return .success(responseData)
         } catch let error as EncodingError {
             return .failure(.internalError(.failedToEncodeData(error: error)))
