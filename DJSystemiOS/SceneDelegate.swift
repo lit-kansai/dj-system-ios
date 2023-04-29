@@ -20,8 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         // MARK: 自分が実装してる画面に書き換えてね
-        let viewController = R.storyboard.main.searchMusicViewController()
-        window.rootViewController = viewController
+        let rootViewController = SearchMusicViewController()
+        let navigationController = UINavigationController(rootViewController: rootViewController)
+        window.rootViewController = navigationController
         self.window = window
         self.window?.makeKeyAndVisible()
     }
