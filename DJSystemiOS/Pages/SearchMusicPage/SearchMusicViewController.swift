@@ -99,6 +99,11 @@ extension SearchMusicViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 69
     }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc: UIViewController = RequestMusicViewController(roomId: "sampleID", music: musics[indexPath.row])
+        navigationController?.pushViewController(vc, animated: true)
+      }
 }
 
 extension SearchMusicViewController: UITableViewDataSource {
