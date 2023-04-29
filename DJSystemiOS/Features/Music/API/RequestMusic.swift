@@ -7,6 +7,12 @@ extension Room.API {
         let message: String
         let roomId: String
     }
+
+    struct NewRequestMusicInput: Encodable {
+        let musics: [String]
+        let radioName: String
+        let message: String
+    }
     struct RequestMusicResponse: Codable {
         let ok: Bool
     }
@@ -14,6 +20,11 @@ extension Room.API {
 
 protocol RequestMusicProtocol {
     func requestMusic(input: Room.API.RequestMusicInput) async throws -> Room.API.RequestMusicResponse
+}
+
+// TODO: こいつを実装する
+protocol NewRequestMusicProtocol {
+    func requestMusic(to id: String, inputs: Room.API.NewRequestMusicInput) async -> Result<Room.API.RequestMusicResponse, APIClientError>
 }
 
 extension Room.API: RequestMusicProtocol {
@@ -32,4 +43,5 @@ extension Room.API: RequestMusicProtocol {
         print(decodeData)
         return decodeData
     }
+
 }
