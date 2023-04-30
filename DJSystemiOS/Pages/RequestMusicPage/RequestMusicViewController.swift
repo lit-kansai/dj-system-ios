@@ -39,14 +39,12 @@ extension RequestMusicViewController: RequestMusicViewControllerProtocol {
         let result = await Room.API().requestMusic(to: roomId, inputs: Room.API.NewRequestMusicInput(musics: [music.id], radioName: radioName, message: message))
         switch result {
         case .success(let result):
-            print(result)
             HUD.flash(.success, delay: 1.0)
             guard let navigationController = self.navigationController else { return }
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
         case .failure(let error):
-            print(error)
             // ここでアラート出したい
-            let alert = UIAlertController(title: "失敗", message: "リクエストに失敗しました", preferredStyle: .alert)
+            let alert = UIAlertController(title: "江ラーが発生しました", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(
                 UIAlertAction(title: "戻る", style: .cancel)
             )

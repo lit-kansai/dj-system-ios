@@ -31,12 +31,7 @@ extension Room.API: NewRequestMusicProtocol {
     func requestMusic(to id: String, inputs: NewRequestMusicInput) async -> Result<RequestMusicResponse, APIClientError> {
         let client = APIClient(baseURL: Environment.BaseAPIURL)
         let input: NewRequestMusicInput = inputs
-        let requestMusic = await client.post(to: .requestMusic(roomId: "sample-gassi"), with: input, responseDataType: Room.API.RequestMusicResponse.self)
-        switch requestMusic {
-        case .success(let requestMusic):
-            return .success(requestMusic)
-        case .failure(let error):
-            return .failure(error)
-        }
+        let requestMusic = await client.post(to: .requestMusic(roomId: id), with: input, responseDataType: Room.API.RequestMusicResponse.self)
+        return requestMusic
     }
 }
