@@ -27,21 +27,16 @@ protocol NewRequestMusicProtocol {
     func requestMusic(to id: String, inputs: Room.API.NewRequestMusicInput) async -> Result<Room.API.RequestMusicResponse, APIClientError>
 }
 
-extension Room.API: RequestMusicProtocol {
-    func requestMusic(input: Room.API.RequestMusicInput) async throws -> Room.API.RequestMusicResponse {
-        let url = URL(string: "https://stg-dj-api.life-is-tech.com/room/\(input.roomId)/request")!
-        var request = URLRequest(url: url)
-        let requestData: [String: Any] = ["musics": input.musics, "radio_name": input.radioName, "message": input.message]
-        let bodyData = try? JSONSerialization.data(withJSONObject: requestData, options: [])
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = bodyData
-        let (data, response) = try await URLSession.shared.data(for: request)
-        guard let decodeData = try? JSONDecoder().decode(RequestMusicResponse.self, from: data) else {
-            return RequestMusicResponse(ok: false)
+extension Room.API: NewRequestMusicProtocol {
+    func requestMusic(to id: String, inputs: NewRequestMusicInput) async -> Result<RequestMusicResponse, APIClientError> {
+        let client = APIClient(baseURL: Environment.BaseAPIURL)
+        let input: NewRequestMusicInput = inputs
+        let requestMusic = await client.post(to: .requestMusic(roomId: "sample-gassi"), with: input, responseDataType: Room.API.RequestMusicResponse.self)
+        switch requestMusic {
+        case .success(let requestMusic):
+            return .success(requestMusic)
+        case .failure(let error):
+            return .failure(error)
         }
-        print(decodeData)
-        return decodeData
     }
-
 }

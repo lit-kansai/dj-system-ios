@@ -36,13 +36,21 @@ class RequestMusicViewController: UIViewController {
 extension RequestMusicViewController: RequestMusicViewControllerProtocol {
     func postMusic(radioName: String, message: String) async {
         HUD.show(.progress)
-        let result = try! await Room.API().requestMusic(input: Room.API.RequestMusicInput(musics: [music.id], radioName: radioName, message: message, roomId: roomId))
-        if result.ok {
+        let result = await Room.API().requestMusic(to: roomId, inputs: Room.API.NewRequestMusicInput(musics: [music.id], radioName: radioName, message: message))
+        switch result {
+        case .success(let result):
+            print(result)
             HUD.flash(.success, delay: 1.0)
             guard let navigationController = self.navigationController else { return }
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
-        } else {
+        case .failure(let error):
+            print(error)
             // ここでアラート出したい
+            let alert = UIAlertController(title: "失敗", message: "リクエストに失敗しました", preferredStyle: .alert)
+            alert.addAction(
+                UIAlertAction(title: "戻る", style: .cancel)
+            )
+            present(alert, animated: true)
             HUD.flash(.error, delay: 1.0)
         }
     }
