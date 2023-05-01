@@ -44,7 +44,7 @@ extension RequestMusicViewController: RequestMusicViewControllerProtocol {
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
         case .failure(let error):
             // ここでアラート出したい
-            let alert = UIAlertController(title: "江ラーが発生しました", message: error.localizedDescription, preferredStyle: .alert)
+            let alert = UIAlertController(title: "エラーが発生しました", message: error.localizedDescription, preferredStyle: .alert)
             alert.addAction(
                 UIAlertAction(title: "戻る", style: .cancel)
             )
