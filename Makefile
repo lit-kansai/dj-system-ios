@@ -1,3 +1,8 @@
+.DEFAULT_GOAL := setup
+
+.PHONY: setup
+setup: mint xcodegen open
+
 .PHONY: xcodegen
 xcodegen:
 	mint run xcodegen
@@ -6,13 +11,12 @@ xcodegen:
 open:
 	open DJSystemiOS.xcodeproj
 
-.PHONY: setup
-setup:
-	mint bootstrap
-	make xcodegen
-	make open
-
+.PHONY: mint
 mint:
+	mint bootstrap
+
+.PHONY: install-mint
+install-mint:
 	git clone --branch 0.16.0 https://github.com/yonaskolb/Mint
 	cd Mint
 	make
