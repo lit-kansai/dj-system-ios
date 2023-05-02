@@ -70,7 +70,7 @@ jobs:
 
     - name: Run Danger
       run: |
-        touch result.json
+        echo '{}' >> result.json
         cd DJSystemiOS-PRLinter
         swift run danger-swift ci --cwd ../
       env:
