@@ -23,7 +23,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Install Dependencies
       run: |
-        sudo apt-get install ruby-full
+        brew install ruby
         gem install bundler
         bundle install
 
