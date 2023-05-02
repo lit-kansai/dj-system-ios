@@ -21,6 +21,11 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+    - name: Install Dependencies
+      run: |
+        sudo apt-get install ruby-full
+        gem install bundler
+        bundle install
 
     - name: Install SwiftLint
       run: |
