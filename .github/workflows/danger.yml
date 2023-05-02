@@ -62,7 +62,7 @@ jobs:
         cd DJSystemiOS-PRLinter
         swift run danger-swift ci --cwd ../
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
 
     - name: cat result.json
       run: |
