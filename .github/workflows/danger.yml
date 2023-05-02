@@ -27,11 +27,17 @@ jobs:
         brew update
         rm -f /usr/local/bin/swiftlint
         brew install swiftlint
+        rm -f /usr/local/bin/xcodegen
+        brew install xcodegen
+
+    - name: Generate .xcodeproj file
+      run: |
+        make xcodegen
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 14
+        node-version: 16
 
     - name: Cache Node.js dependencies
       uses: actions/cache@v2
@@ -63,8 +69,4 @@ jobs:
         swift run danger-swift ci --cwd ../
       env:
         GITHUB_TOKEN: ${{ secrets.REPOSITORY_ACCESS_TOKEN }}
-
-    - name: cat result.json
-      run: |
-        cat result.json
 
