@@ -9,7 +9,7 @@ class ViewController: UIViewController {
     }
 
     func hoge () {
-        let count = 0
+        aaalet count = 0
     }
 
 }
