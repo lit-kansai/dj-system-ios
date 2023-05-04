@@ -40,6 +40,8 @@ jobs:
         xcodegen generate
     - name: resolvePackagesDependecies 
       run: make packages
+    - name: make build 
+      run: make build
     - name: Test
       run: |
         make test
