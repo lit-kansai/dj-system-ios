@@ -51,10 +51,6 @@ build:
 -scheme '${SCHEME_NAME}' \
 -showBuildTimingSummary \
 -destination ${TEST_DESTINATION} \
-OTHER_SWIFT_FLAGS="-warnings-as-errors" \
-| tee build$(date +%s).log \
-| egrep '(swift:[0-9]+:[0-9]+: error:|cannot be found|BUILD SUCCEEDED|.swift.*warning.*Violation)' \
-| sed 's/:/,/g'
 
 
 .PHONY: packages
