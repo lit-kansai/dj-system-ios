@@ -41,7 +41,7 @@ test:
 -scheme '${SCHEME_NAME}' \
 -destination ${TEST_DESTINATION} \
 -resultBundlePath TestResults \
-test
+test | xcbeautify
 
 .PHONY: build
 build:
@@ -51,6 +51,7 @@ build:
 -scheme '${SCHEME_NAME}' \
 -showBuildTimingSummary \
 -destination ${TEST_DESTINATION} \
+| xcbeautify
 
 
 .PHONY: packages
@@ -60,6 +61,7 @@ packages:
 -destination ${TEST_DESTINATION} \
 -scheme ${SCHEME_NAME} \
 -clonedSourcePackagesDirPath ./SourcePackages
+| xcbeautify
 
 .PHONY: clean
 clean:
