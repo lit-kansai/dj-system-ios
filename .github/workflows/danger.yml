@@ -28,6 +28,8 @@ jobs:
         brew install ruby
         gem install bundler
         bundle install
+        make install-mint
+        make mint
 
     - name: Install SwiftLint
       run: |
@@ -49,12 +51,6 @@ jobs:
     - name: Test
       run: |
         make test
-
-    - uses: kishikawakatsumi/xcresulttool@v1
-      with:
-        path: TestResults.xcresult
-      if: success() || failure()
-
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
@@ -78,6 +74,12 @@ jobs:
         key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
         restore-keys: |
           ${{ runner.os }}-spm-
+
+    - uses: kishikawakatsumi/xcresulttool@v1
+      with:
+        path: TestResults.xcresult
+      if: success() || failure()
+
 
     - name: Install Danger and dependencies
       run: |
