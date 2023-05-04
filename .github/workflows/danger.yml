@@ -39,7 +39,7 @@ jobs:
       run: |
         xcodegen generate
     - name: resolvePackagesDependecies 
-      run: xcodebuild -resolvePackageDependencies
+      run: make packages
     - name: Test
       run: |
         make test
