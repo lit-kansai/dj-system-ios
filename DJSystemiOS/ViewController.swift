@@ -1,6 +1,4 @@
 import UIKit
-import SwiftUI
-import PKHUD
 
 class ViewController: UIViewController {
 
@@ -9,7 +7,7 @@ class ViewController: UIViewController {
     }
 
     func hoge () {
-        aalet count = 0
+        let count = 0
     }
 
 }
