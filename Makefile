@@ -60,7 +60,6 @@ packages:
 -project ${PROJECT_NAME} \
 -destination ${TEST_DESTINATION} \
 -scheme ${SCHEME_NAME} \
--clonedSourcePackagesDirPath ./SourcePackages \
 | xcbeautify
 
 .PHONY: clean

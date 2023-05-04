@@ -12,7 +12,7 @@ options:
     # - pattern: '^.*Page$'
     #   order: [View, Presenter, Interactor, Router]
 configs:
-  Develop: debug
+  Debug: debug
   Release: release
 
 schemes: 
@@ -21,9 +21,9 @@ schemes:
       targets:
         DJSystemiOS: all
     run:
-      config: Develop
+      config: Debug
     test:
-      config: Develop
+      config: Debug
       targets:
         - name: DJSystemiOSTests
           parallelizable: true
