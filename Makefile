@@ -61,6 +61,7 @@ OTHER_SWIFT_FLAGS="-warnings-as-errors" \
 packages:
 	xcodebuild -resolvePackageDependencies \
 -project ${PROJECT_NAME} \
+-destination ${TEST_DESTINATION} \
 -scheme ${SCHEME_NAME} \
 -clonedSourcePackagesDirPath ./SourcePackages
 
