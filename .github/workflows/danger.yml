@@ -40,6 +40,10 @@ jobs:
         brew install xcodegen
         rm -f /usr/local/bin/xcbeautify
         brew install xcbeautify
+        rm -f /usr/local/bin/swiftlint
+        brew install swiftlint
+        rm -f /usr/local/bin/rswift
+        brew install rswift
 
     - name: Generate .xcodeproj file
       run: |
