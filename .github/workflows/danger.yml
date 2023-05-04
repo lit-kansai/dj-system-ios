@@ -21,6 +21,14 @@ jobs:
     steps:
     - name: Check out code
       uses: actions/checkout@v2
+    - name: Test
+      run: |
+        make test
+
+    - uses: kishikawakatsumi/xcresulttool@v1
+      with:
+        path: TestResults.xcresult
+      if: success() || failure()
     - name: Install Dependencies
       run: |
         brew install ruby
