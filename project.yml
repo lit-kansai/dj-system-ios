@@ -1,4 +1,3 @@
-# プロジェクト名(例: XcodeGenPractice.xcodeprojみたいなやつが生成される)
 name: DJSystemiOS
 attributes:
   ORGANIZATIONAME: "Tomoya Tanaka"
@@ -17,7 +16,7 @@ configs:
   Release: release
 
 schemes: 
-  App Develop:
+  DJSystemiOS:
     build:
       targets:
         DJSystemiOS: all
