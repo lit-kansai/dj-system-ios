@@ -26,10 +26,9 @@ mint:
 
 .PHONY: install-mint
 install-mint:
-	git clone --branch 0.16.0 https://github.com/yonaskolb/Mint
+	git clone --branch 0.17.5 https://github.com/yonaskolb/Mint
 	cd Mint && make
 	rm -rf Mint
-
 
 .PHONY: test
 test:

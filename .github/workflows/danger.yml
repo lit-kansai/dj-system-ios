@@ -23,6 +23,11 @@ jobs:
       uses: actions/checkout@v2
     - name: Select Xcode 14.2
       run: sudo xcode-select -s /Applications/Xcode_14.2.app
+    - name: Install Dependencies
+      run: |
+        make install-mint
+        make mint
+
     - name: Install SwiftLint
       run: |
         brew update
@@ -32,10 +37,6 @@ jobs:
         brew install xcodegen
         rm -f /usr/local/bin/xcbeautify
         brew install xcbeautify
-        rm -f /usr/local/bin/swiftlint
-        brew install swiftlint
-        rm -f /usr/local/bin/rswift
-        brew install rswift
 
     - name: Generate .xcodeproj file
       run: |
