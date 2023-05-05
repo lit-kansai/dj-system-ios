@@ -32,7 +32,7 @@ class APIClientTests: XCTestCase {
             let response = HTTPURLResponse(url: baseURL, statusCode: statusCode.value, httpVersion: "HTTP/1.1", headerFields: nil)
             guard let response else { fatalError("invalid HTTPURLResponse") }
             MockAPIResponseHandler.registerResponse(httpURLResponse: response, jsonData: jsonData)
-            let result: Result<SampleResponse, APIClientError> = await apiClient.get(from: .musicTop(roomId: "hoge"))
+            let result: Result<SampleResponse, APIClientError> = await apiClient.get(from: .musicTop(roomId: "hoge"), dataType: SampleResponse.self)
 
             switch statusCode {
             case .ok:

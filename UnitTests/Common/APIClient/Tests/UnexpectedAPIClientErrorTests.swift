@@ -11,7 +11,7 @@ final class UnexpectedAPIClientErrorTests: XCTestCase {
 
         let apiClient = APIClient(urlSession: session, baseURL: URL(string: "https://example.com")!)
 
-        let result: Result<Sample, APIClientError> = await apiClient.get(from: .musicTop(roomId: "hoge"))
+        let result: Result<Sample, APIClientError> = await apiClient.get(from: .musicTop(roomId: "hoge"), dataType: Sample.self)
 
         switch result {
         case .success:
