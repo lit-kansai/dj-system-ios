@@ -1,4 +1,5 @@
 disabled_rules:
+    - number_separator
     - vertical_whitespace
     - unused_optional_binding
     - line_length
@@ -56,6 +57,5 @@ opt_in_rules:
     - first_where
     - sorted_imports
     - object_literal
-    - number_separator
     - prohibited_super_call
     - fatal_error_message
