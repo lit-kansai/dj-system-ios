@@ -13,17 +13,21 @@ struct RoomOverviewPageView: View {
 
     var body: some View {
         VStack {
-            Text(controller?.state.name ?? "sample-name")
-                .foregroundColor(Color(.label))
-                .font(.system(size: 34, weight: .bold, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom)
+            if let name = controller?.state.name {
+                Text(name)
+                    .foregroundColor(Color(.label))
+                    .font(.system(size: 34, weight: .bold, design: .default))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom)
+            }
 
-            Text(controller?.state.description ?? "サンプルの説明文")
-                .foregroundColor(Color(.label))
-                .font(.body)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom, 36)
+            if let description = controller?.state.description {
+                Text(description)
+                    .foregroundColor(Color(.label))
+                    .font(.body)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.bottom, 36)
+            }
 
             Button {
                 Task {
@@ -49,7 +53,7 @@ extension RoomOverviewPageView {
     class DataSource: ObservableObject {
         @Published var name: String = ""
         @Published var description: String = ""
-        init(name: String = "", description: String = "") {
+        init(name: String, description: String) {
             self.name = name
             self.description = description
         }
