@@ -50,10 +50,13 @@ extension HomePageViewController: HomePageControllerProtocol {
                     // アラートを非表示する
                     state.shouldShowAlert = false
                 }
-                self.navigationController?.pushViewController(RoomOverviewViewController(roomOverview: roomOverview), animated: true)
+                // 遷移先のRoomOverViewController
+                let roomOverviewController = RoomOverviewViewController(roomOverview: roomOverview)
+                // 画面遷移
+                self.navigationController?.pushViewController(roomOverviewController, animated: true)
                 // ローディング終了
-                HUD.flash(.success, delay: 1.0)
-            // RoomIdがからの時(""の時)
+                HUD.hide()
+            // RoomIdが空の時(""の時)
             } else {
                 Task.detached { @MainActor [state] in
                     // 空のRoomOverviewを渡す
