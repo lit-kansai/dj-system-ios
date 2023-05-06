@@ -30,9 +30,7 @@ struct RoomOverviewPageView: View {
             }
 
             Button {
-                Task {
-                    controller?.toSearchMusicPage()
-                }
+                controller?.toSearchMusicPage()
             } label: {
                 // ボタンのタップ領域をここで指定
                 Text("曲をリクエストする")
