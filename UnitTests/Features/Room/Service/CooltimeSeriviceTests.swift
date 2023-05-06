@@ -43,7 +43,6 @@ final class CooltimeSeriviceTests: XCTestCase {
         let futureCooltime = currentTime + timeToAdd
         let (hours, minutes, seconds) = cooltimeSerivce.calculateTimeLeft(cooltime: futureCooltime)
         
-        print(futureCooltime)
         XCTAssertEqual(hours, 2)
         XCTAssertEqual(minutes, 30)
         XCTAssertEqual(seconds, 10)
