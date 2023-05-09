@@ -1,6 +1,6 @@
-import XCTest
-import Foundation
 @testable import DJSystemiOS
+import Foundation
+import XCTest
 
 
 struct Sample: Codable {}

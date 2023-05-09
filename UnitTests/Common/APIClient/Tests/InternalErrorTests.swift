@@ -1,5 +1,5 @@
-import XCTest
 @testable import DJSystemiOS
+import XCTest
 
 class APIClientInternalErrorTests: XCTestCase {
     let baseURL = URL(string: "https://api.example.com")!

@@ -1,6 +1,6 @@
-import XCTest
-import Foundation
 @testable import DJSystemiOS
+import Foundation
+import XCTest
 
 class APIClientTests: XCTestCase {
     let baseURL = URL(string: "https://api.example.com")!

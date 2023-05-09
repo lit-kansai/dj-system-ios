@@ -6,8 +6,4 @@ class ViewController: UIViewController {
         super.viewDidLoad()
     }
 
-    func hoge () {
-        let count = 0
-    }
-
 }
