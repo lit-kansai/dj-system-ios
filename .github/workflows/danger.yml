@@ -28,6 +28,12 @@ jobs:
         make install-mint
         make mint
 
+    - name: Install xcbeautify
+      run: |
+        brew update
+        rm -f /usr/local/bin/xcbeautify
+        brew install xcbeautify
+
     - name: Cache Mint dependencies
       uses: actions/cache@v2
       with:
@@ -38,7 +44,7 @@ jobs:
 
     - name: Generate .xcodeproj file
       run: |
-        make xcodegen
+        rake xcodegen
     - name: resolvePackagesDependecies 
       run: make packages
     - name: make build 
