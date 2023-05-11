@@ -38,7 +38,7 @@ jobs:
 
     - name: Generate .xcodeproj file
       run: |
-        xcodegen generate
+        make xcodegen
     - name: resolvePackagesDependecies 
       run: make packages
     - name: make build 
