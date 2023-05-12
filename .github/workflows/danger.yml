@@ -44,7 +44,7 @@ jobs:
 
     - name: Generate .xcodeproj file
       run: |
-        rake xcodegen
+        make xcodegen
     - name: resolvePackagesDependecies 
       run: make packages
     - name: make build 
