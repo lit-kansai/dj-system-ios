@@ -11,19 +11,14 @@ final class SearchRoomPageViewController: UIViewController {
     @ObservedObject var state: SearchRoomPageView.DataSource = .init()
     // TODO: 後でletに変える
     var roomAPI: GetRoomAPIProtocol = Room.API()
-    var presenter: SearchRoomPresenterProtocol!
-    func inject(presenter: SearchRoomPresenterProtocol) {
-        self.presenter = presenter
-    }
 
     init(roomAPI: GetRoomAPIProtocol) {
-        super.init(nibName: nil, bundle: nil)
         self.roomAPI = roomAPI
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.roomAPI = Room.API()
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func viewDidLoad() {
@@ -54,8 +49,9 @@ extension SearchRoomPageViewController: SearchRoomPageControllerProtocol {
                     // 表示結果を表示する
                     state.showResultText = true
                 }
+                let router = SearchRoomRouter(controller: self)
                 // Routerを使った画面遷移
-                presenter.transitionToRoomOverviewPage(roomOverview: roomOverview)
+                router.transitionToRoomOverviewPage(roomOverview: roomOverview)
                 // ローディング終了
                 HUD.hide()
             // Roomが見つからなかった時
