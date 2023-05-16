@@ -32,6 +32,7 @@ test:
 -project ${PROJECT_NAME} \
 -scheme '${SCHEME_NAME}' \
 -destination ${TEST_DESTINATION} \
+-parallel-testing-enabled NO \
 -resultBundlePath TestResults \
 test | xcbeautify
 
@@ -44,7 +45,6 @@ build:
 -showBuildTimingSummary \
 -destination ${TEST_DESTINATION} \
 | xcbeautify
-
 
 .PHONY: packages
 packages:
