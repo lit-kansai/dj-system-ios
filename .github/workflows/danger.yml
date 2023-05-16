@@ -54,10 +54,6 @@ jobs:
       run: |
         env HOMEBREW_NO_AUTO_UPDATE=1 brew install mint xcbeautify
 
-    - name: Install Mint
-      run: |
-        make install-mint
-
     - name: Install build tools via Mint
       run: |
         make mint
