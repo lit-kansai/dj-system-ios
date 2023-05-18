@@ -14,7 +14,7 @@ permissions:
   statuses: write
 
 jobs:
-  setup_env_and_build:
+  check:
     runs-on: macos-12
     steps:
     - name: Check out code
@@ -67,7 +67,7 @@ jobs:
     - name: Install Danger and dependencies
       run: |
         cd DJSystemiOS-PRLinter
-        swift build
+        swift build -c release
 
     - name: Run Danger
       run: |
