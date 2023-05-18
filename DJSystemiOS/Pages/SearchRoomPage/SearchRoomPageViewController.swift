@@ -50,8 +50,9 @@ extension SearchRoomPageViewController: SearchRoomPageControllerProtocol {
                     state.showResultText = true
                 }
                 let router = SearchRoomRouter()
+                guard let navigationController = self.navigationController else { return }
                 // Routerを使った画面遷移
-                router.transitionToRoomOverviewPage(self.navigationController!, roomOverview: roomOverview)
+                router.transitionToRoomOverviewPage(navigationController, roomOverview: roomOverview)
                 // ローディング終了
                 HUD.hide()
             // Roomが見つからなかった時
