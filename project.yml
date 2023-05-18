@@ -33,9 +33,6 @@ schemes:
       config: Release
 
 packages:
-  Moya:
-    url: https://github.com/Moya/Moya.git
-    majorVersion: 15.0.0
   PKHUD:
     url: https://github.com/pkluz/PKHUD.git
     majorVersion: 5.4.0
@@ -87,7 +84,6 @@ targets:
         CFBundleVersion: $(CURRENT_PROJECT_BUILD_NUMBER)
         CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
     dependencies:
-      - package: Moya
       - package: PKHUD
       - package: RswiftLibrary
       - package: SnapKit
