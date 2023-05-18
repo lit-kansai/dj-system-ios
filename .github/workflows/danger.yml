@@ -52,13 +52,6 @@ jobs:
         env HOMEBREW_NO_AUTO_UPDATE=1 brew install mint xcbeautify
         make mint
         npm install -g danger
-
-  analyze_and_lint:
-    needs: setup_env_and_build
-    runs-on: macos-12
-    steps:
-    - uses: actions/checkout@v2
-
     - name: Build and Test
       run: |
         make xcodegen
