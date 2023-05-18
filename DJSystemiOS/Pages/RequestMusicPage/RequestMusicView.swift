@@ -66,7 +66,7 @@ struct RequestMusicView: View {
                         if dataSource.radioName.isEmpty {
                             Text("がっしー")
                                 .padding(10)
-                                .foregroundColor(Color(white: 0.5))
+                                .foregroundColor(Color(UIColor.gray))
                         }
                         TextField("", text: $dataSource.radioName)
                             .padding(10)
@@ -79,18 +79,9 @@ struct RequestMusicView: View {
                         .font(.title3)
                         .fontWeight(.heavy)
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    ZStack(alignment: .leading) {
-                        if dataSource.message.isEmpty {
-                            Text("がっしーだよー")
-                                .padding(10)
-                                .foregroundColor(Color(white: 0.5))
-                        }
-                        TextField("", text: $dataSource.message)
-                            .padding(10)
-                            .border(.gray)
-                    }
                 }
             }
+            TextView(message: $dataSource.message, placeHolder: "がっしーだよー")
             Spacer()
             Button(action: {
                 Task {
@@ -98,6 +89,7 @@ struct RequestMusicView: View {
                 }
             }, label: {
                 Text("リクエスト送る")
+                    .foregroundColor(.white)
                     .font(.footnote)
                     .bold()
                     .frame(maxWidth: .infinity)
@@ -106,9 +98,7 @@ struct RequestMusicView: View {
             .background(Color.pink)
             .cornerRadius(10)
         }
-        .foregroundColor(.white)
         .padding()
-        .background(Color(red: 30 / 256, green: 30 / 256, blue: 30 / 256))
     }
 }
 
@@ -121,6 +111,78 @@ extension RequestMusicView {
 
 struct RequestMusicView_Previews: PreviewProvider {
     static var previews: some View {
-            RequestMusicView(controller: RequestMusicViewController(roomId: "sample-gassi", music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!)), music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!))
+        RequestMusicView(controller: RequestMusicViewController(roomId: "sample-gassi", music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!)), music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!))
+    }
+}
+
+struct TextView: UIViewRepresentable {
+    @Binding var message: String
+    var placeHolder: String
+
+    func makeUIView(context: UIViewRepresentableContext<TextView>) -> PlaceTextView {
+        let textView = PlaceTextView()
+        textView.placeHolderLabel.textColor = UIColor.gray
+        textView.layer.borderColor = UIColor.gray.cgColor
+        textView.layer.borderWidth = 1
+        return textView
+    }
+
+    func updateUIView(_ uiTextView: PlaceTextView, context: Context) {
+        uiTextView.text = message
+        uiTextView.placeHolder = placeHolder
+        uiTextView.updateView()
+    }
+
+    func makeCoordinator() -> TextView.Coordinator {
+        return Coordinator(self)
+    }
+
+    class Coordinator: NSObject, UITextFieldDelegate {
+        let contentView: TextView
+
+        init(_ contentView: TextView) {
+            self.contentView = contentView
+        }
+
+        func textFieldDidEndEditing(_ textField: UITextField) {
+            contentView.message = textField.text ?? ""
+        }
+    }
+}
+
+final class PlaceTextView: UITextView {
+    var placeHolderLabel: UILabel!
+    var placeHolder: String = "" {
+        willSet {
+            self.placeHolderLabel.text = newValue
+            self.placeHolderLabel.sizeToFit()
+        }
+    }
+
+    override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
+        initialize()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+
+    private func initialize() {
+        textContainerInset = UIEdgeInsets(top: 6, left: 4, bottom: 8, right: 0)
+        textContainer.lineFragmentPadding = 0
+        placeHolderLabel = UILabel(frame: CGRect(x: 4, y: 2, width: 0, height: 0))
+        addSubview(placeHolderLabel)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(textChanged(notification:)),
+                                               name: UITextView.textDidChangeNotification,
+                                               object: nil)
+    }
+    @objc private func textChanged(notification: NSNotification) {
+        updateView()
+    }
+    func updateView() {
+        self.placeHolderLabel.isHidden = (placeHolder.isEmpty || !text.isEmpty)
     }
 }
