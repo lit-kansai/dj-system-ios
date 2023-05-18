@@ -33,6 +33,7 @@ test:
 -scheme '${SCHEME_NAME}' \
 -destination ${TEST_DESTINATION} \
 -parallel-testing-enabled NO \
+-enableCodeCoverage YES \
 -resultBundlePath TestResults \
 test | xcbeautify
 

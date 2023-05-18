@@ -24,6 +24,7 @@ schemes:
       config: Debug
     test:
       config: Debug
+      gatherCoverageData: true
       targets:
         - name: DJSystemiOSTests
           parallelizable: true
