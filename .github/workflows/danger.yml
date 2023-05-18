@@ -52,6 +52,8 @@ jobs:
         env HOMEBREW_NO_AUTO_UPDATE=1 brew install mint xcbeautify
         make mint
         npm install -g danger
+        cd DJSystemiOS-PRLinter && swift build -c release
+
     - name: Build and Test
       run: |
         make xcodegen
@@ -63,11 +65,6 @@ jobs:
       with:
         path: TestResults.xcresult
       if: success() || failure()
-
-    - name: Install Danger and dependencies
-      run: |
-        cd DJSystemiOS-PRLinter
-        swift build -c release
 
     - name: Run Danger
       run: |
