@@ -59,7 +59,7 @@ extension SearchRoomPageViewController: SearchRoomPageControllerProtocol {
             case .failure:
                 let alert = UIAlertController(title: "ルームが見つかりませんでした", message: "IDが間違っていないか確認してください", preferredStyle: .alert)
                 alert.addAction(
-                    UIAlertAction(title: "OK", style: .cancel, handler:{ [self] (action: UIAlertAction!) -> Void in
+                    UIAlertAction(title: "OK", style: .cancel, handler: { [self] (action: UIAlertAction!) -> Void in
                         Task.detached { @MainActor [state] in
                             // 空のRoomOverviewを渡す
                             state.currentRoom = RoomOverview(id: "", name: "", description: "")
