@@ -144,8 +144,8 @@ struct TextView: UIViewRepresentable {
             self.contentView = contentView
         }
 
-        func textFieldDidEndEditing(_ textField: UITextField) {
-            contentView.message = textField.text ?? ""
+        func textFieldDidEndEditing(_ textView: UITextView) {
+            contentView.message = textView.text ?? ""
         }
     }
 }
@@ -170,9 +170,9 @@ final class PlaceTextView: UITextView {
     }
 
     private func initialize() {
-        textContainerInset = UIEdgeInsets(top: 6, left: 4, bottom: 8, right: 0)
-        textContainer.lineFragmentPadding = 0
-        placeHolderLabel = UILabel(frame: CGRect(x: 4, y: 2, width: 0, height: 0))
+        textContainerInset = UIEdgeInsets(top: 10, left: 0, bottom: 8, right: 0)
+        textContainer.lineFragmentPadding = 10
+        placeHolderLabel = UILabel(frame: CGRect(x: 10, y: 6, width: 0, height: 0))
         addSubview(placeHolderLabel)
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(textChanged(notification:)),
