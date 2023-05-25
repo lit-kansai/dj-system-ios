@@ -1,17 +1,8 @@
-name: Danger CI
+name: Cache
 
 on:
-  pull_request:
-    types: [opened, synchronize]
-
-permissions:
-  actions: write
-  checks: write
-  contents: write
-  deployments: read
-  issues: write
-  pull-requests: write
-  statuses: write
+  push:
+    branches: [ main ]
 
 jobs:
   check:
@@ -46,30 +37,4 @@ jobs:
         key: ${{ runner.os }}-deps-${{ hashFiles('**/Mintfile', '**/package-lock.json', '**/Package.resolved', '.github/brew-formulae') }}
         restore-keys: |
           ${{ runner.os }}-deps-
-
-    - name: Install dependencies
-      run: |
-        env HOMEBREW_NO_AUTO_UPDATE=1 brew install mint xcbeautify
-        make mint
-        npm install -g danger
-        cd DJSystemiOS-PRLinter && swift build -c release
-
-    - name: Build and Test
-      run: |
-        make xcodegen
-        make packages
-        make build
-        make test
-
-    - uses: kishikawakatsumi/xcresulttool@v1
-      with:
-        path: TestResults.xcresult
-      if: success() || failure()
-
-    - name: Run Danger
-      run: |
-        cd DJSystemiOS-PRLinter
-        swift run danger-swift ci --cwd ../
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
