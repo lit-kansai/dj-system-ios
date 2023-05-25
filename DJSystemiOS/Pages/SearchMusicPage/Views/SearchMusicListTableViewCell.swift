@@ -1,10 +1,17 @@
 import UIKit
 
-class SearchMusicListTableViewCell: UITableViewCell {
-    @IBOutlet private var backgroundImageView: UIImageView!
+final class SearchMusicListTableViewCell: UITableViewCell {
     @IBOutlet private var thumbnailImageView: UIImageView!
-    @IBOutlet private var musicNameLabel: UILabel!
-    @IBOutlet private var artistNameLabel: UILabel!
+    @IBOutlet private var musicNameLabel: UILabel! {
+        didSet {
+            musicNameLabel.textColor = .black
+        }
+    }
+    @IBOutlet private var artistNameLabel: UILabel! {
+        didSet {
+            artistNameLabel.textColor = .systemGray
+        }
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -12,17 +19,27 @@ class SearchMusicListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        musicNameLabel.textColor = UIColor(hex: "FAFAFA")
-        artistNameLabel.textColor = UIColor(hex: "A6A6A6")
     }
 
-    func setData(music: Music) {
+    func configureCell(music: Music) {
         musicNameLabel.text = music.name
         artistNameLabel.text = music.artists
-        backgroundImageView.backgroundColor = UIColor(hex: "1E1E1E")
         Task {
-            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: music.thumbnail))
-            thumbnailImageView.image = UIImage(data: imageData)
+            let image = await fetchImageData(from: music.thumbnail)
+            DispatchQueue.main.async {
+                self.thumbnailImageView.image = image
+            }
         }
     }
+
+    func fetchImageData(from url: URL) async -> UIImage {
+        let defaultImage: UIImage = UIImage(systemName: "square.stack")!
+        do {
+            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: url))
+            return UIImage(data: imageData) ?? defaultImage
+        } catch {
+            return defaultImage
+        }
+    }
+
 }
