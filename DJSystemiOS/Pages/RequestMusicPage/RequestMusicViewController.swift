@@ -32,7 +32,7 @@ class RequestMusicViewController: UIViewController {
         hostingVC.coverView(parent: view)
         setupNavigationBarTitle()
     }
-    
+
     private func setupNavigationBarTitle() {
         title = "曲をリクエストする"
         navigationController?.navigationBar.prefersLargeTitles = true

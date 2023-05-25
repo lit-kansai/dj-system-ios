@@ -140,7 +140,7 @@ struct TextView: UIViewRepresentable {
             self.contentView = contentView
         }
 
-        func textFieldDidEndEditing(_ textView: UITextView) {
+        private func textFieldDidEndEditing(_ textView: UITextView) {
             contentView.message = textView.text ?? ""
         }
     }
@@ -175,7 +175,8 @@ final class PlaceTextView: UITextView {
                                                name: UITextView.textDidChangeNotification,
                                                object: nil)
     }
-    @objc private func textChanged(notification: NSNotification) {
+    @objc
+    private func textChanged(notification: NSNotification) {
         updateView()
     }
     func updateView() {
