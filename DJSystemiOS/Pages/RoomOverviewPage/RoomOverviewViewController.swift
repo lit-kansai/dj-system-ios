@@ -35,6 +35,12 @@ class RoomOverviewViewController: UIViewController {
 
 extension RoomOverviewViewController: RoomOverviewControllerProtocol {
     func toSearchMusicPage() {
-        self.navigationController?.pushViewController(SearchMusicViewController(), animated: true)
+        let searchMusicViewController = SearchMusicViewController(
+            roomId: "sample-gassi",
+            roomAPI: Room.API(),
+            router: SearchMusicRouter()
+        )
+
+        self.navigationController?.pushViewController(searchMusicViewController, animated: true)
     }
 }
