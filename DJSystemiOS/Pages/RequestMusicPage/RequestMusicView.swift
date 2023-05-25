@@ -14,12 +14,8 @@ struct RequestMusicView: View {
     var body: some View {
         VStack {
             VStack {
-                Text("曲をリクエストする")
-                    .font(.largeTitle)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("リクエストするルーム")
-                    .font(.title)
+                    .font(.title2)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.vertical, 1)
@@ -30,7 +26,7 @@ struct RequestMusicView: View {
             .padding(.vertical)
             VStack {
                 Text("リクエストする楽曲")
-                    .font(.title)
+                    .font(.title2)
                     .bold()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 HStack {
@@ -42,7 +38,7 @@ struct RequestMusicView: View {
                     }
                     VStack {
                         Text(music.name)
-                            .font(.title)
+                            .font(.headline)
                             .bold()
                             .frame(maxWidth: .infinity, alignment: .leading)
                         Text(music.artists)
@@ -54,12 +50,12 @@ struct RequestMusicView: View {
             Group {
                 VStack {
                     Text("お便り")
-                        .font(.title)
+                        .font(.title2)
                         .bold()
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.vertical, 1)
                     Text("ニックネーム")
-                        .font(.title3)
+                        .font(.headline)
                         .fontWeight(.heavy)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     ZStack(alignment: .leading) {
@@ -76,7 +72,7 @@ struct RequestMusicView: View {
                 .padding(.vertical, 10)
                 VStack {
                     Text("メッセージ")
-                        .font(.title3)
+                        .font(.headline)
                         .fontWeight(.heavy)
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
@@ -144,7 +140,7 @@ struct TextView: UIViewRepresentable {
             self.contentView = contentView
         }
 
-        func textFieldDidEndEditing(_ textView: UITextView) {
+        private func textFieldDidEndEditing(_ textView: UITextView) {
             contentView.message = textView.text ?? ""
         }
     }
@@ -179,7 +175,8 @@ final class PlaceTextView: UITextView {
                                                name: UITextView.textDidChangeNotification,
                                                object: nil)
     }
-    @objc private func textChanged(notification: NSNotification) {
+    @objc
+    private func textChanged(notification: NSNotification) {
         updateView()
     }
     func updateView() {
