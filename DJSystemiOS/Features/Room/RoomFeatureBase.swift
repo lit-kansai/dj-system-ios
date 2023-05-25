@@ -1,3 +1,3 @@
 import Foundation
 
-struct Room {}
+enum Room {}
