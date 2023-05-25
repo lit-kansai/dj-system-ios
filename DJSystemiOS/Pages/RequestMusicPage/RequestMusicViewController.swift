@@ -30,6 +30,13 @@ class RequestMusicViewController: UIViewController {
         view.addSubview(hostingVC.view)
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
+        setupNavigationBarTitle()
+    }
+    
+    private func setupNavigationBarTitle() {
+        title = "曲をリクエストする"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
     }
 }
 
