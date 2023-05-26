@@ -2,36 +2,35 @@ import UIKit
 
 class CooltimeViewController: UIViewController {
 
-    @IBOutlet var timerLabel: UILabel!
-    
+    @IBOutlet private var timerLabel: UILabel!
+
     let cooltimeService = CooltimeService(dataSource: CooltimeDataSource())
-    
+
     var time = Date().timeIntervalSince1970 + 300
-    
+
     var coolTimeTimer = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         var setTime = cooltimeService.getRemainingCooltime()
-        
+
         if setTime == nil {
-            var setTime  = cooltimeService.calculateTimeLeft(cooltime: Int(time))
+            var setTime = cooltimeService.calculateTimeLeft(cooltime: Int(time))
             var text = cooltimeService.formatTime(hours: setTime.0, minutes: setTime.1, seconds: setTime.2)
             timerLabel.text = text
         } else {
             timerLabel.text = setTime
         }
-        
-        
+
         timer()
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
+
         cooltimeService.saveCooltime(unixTime: time)
-        
+
     }
 
     func timer() {
@@ -46,10 +45,10 @@ class CooltimeViewController: UIViewController {
     }
 
     @objc func countDown() {
-        var setTime  = cooltimeService.calculateTimeLeft(cooltime: Int(time))
+        var setTime = cooltimeService.calculateTimeLeft(cooltime: Int(time))
         var text = cooltimeService.formatTime(hours: setTime.0, minutes: setTime.1, seconds: setTime.2)
         timerLabel.text = text
-        
+
         if text == "00:00" {
             coolTimeTimer.invalidate()
         }
