@@ -44,7 +44,8 @@ class CooltimeViewController: UIViewController {
 
     }
 
-    @objc func countDown() {
+    @objc
+    func countDown() {
         var setTime = cooltimeService.calculateTimeLeft(cooltime: Int(time))
         var text = cooltimeService.formatTime(hours: setTime.0, minutes: setTime.1, seconds: setTime.2)
         timerLabel.text = text
