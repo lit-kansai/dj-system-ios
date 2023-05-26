@@ -5,16 +5,24 @@ class CooltimeViewController: UIViewController {
     @IBOutlet var timerLabel: UILabel!
     
     let cooltimeService = CooltimeService(dataSource: CooltimeDataSource())
-
+    
+    var time = Date().timeIntervalSince1970 + 300
+    
     var coolTimeTimer = Timer()
-    var time = Date().timeIntervalSince1970
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let remainingTime = cooltimeService.getRemainingCooltime()
         
-        timerLabel.text = remainingTime
+        var setTime = cooltimeService.getRemainingCooltime()
+        
+        if setTime == nil {
+            var setTime  = cooltimeService.calculateTimeLeft(cooltime: Int(time))
+            var text = cooltimeService.formatTime(hours: setTime.0, minutes: setTime.1, seconds: setTime.2)
+            timerLabel.text = text
+        } else {
+            timerLabel.text = setTime
+        }
+        
         
         timer()
     }
@@ -30,32 +38,21 @@ class CooltimeViewController: UIViewController {
         coolTimeTimer = Timer.scheduledTimer(
             timeInterval: 1.0,
             target: self,
-            selector: #selector(down(timer:)),
+            selector: #selector(self.countDown),
             userInfo: nil,
             repeats: true
         )
 
     }
 
-    @objc func down(timer: Timer) {
-        let remainingTime = cooltimeService.getRemainingCooltime()
+    @objc func countDown() {
+        var setTime  = cooltimeService.calculateTimeLeft(cooltime: Int(time))
+        var text = cooltimeService.formatTime(hours: setTime.0, minutes: setTime.1, seconds: setTime.2)
+        timerLabel.text = text
         
-        time -= 1
-        
-        let hours = Int(time) / 3_600
-        let minutes = (Int(time) % 3_600) / 60
-        let seconds = Int(time) % 60
-        
-        if seconds < 10 {
-            timerLabel.text = String("\(minutes):0\(seconds)")
-        } else {
-            timerLabel.text = String("\(minutes):\(seconds)")
+        if text == "00:00" {
+            coolTimeTimer.invalidate()
         }
-        
-        if time == 0 {
-            timer.invalidate()
-        }
-        
     }
 
 }
