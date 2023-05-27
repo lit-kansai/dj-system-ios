@@ -4,15 +4,6 @@ on:
   pull_request:
     types: [opened, synchronize]
 
-permissions:
-  actions: write
-  checks: write
-  contents: write
-  deployments: read
-  issues: write
-  pull-requests: write
-  statuses: write
-
 jobs:
   check:
     runs-on: macos-12
