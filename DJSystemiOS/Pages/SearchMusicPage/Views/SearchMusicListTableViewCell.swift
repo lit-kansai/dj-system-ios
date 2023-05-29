@@ -1,10 +1,11 @@
 import UIKit
 
 final class SearchMusicListTableViewCell: UITableViewCell {
+    static let height: CGFloat = 64
     @IBOutlet private var thumbnailImageView: UIImageView!
     @IBOutlet private var musicNameLabel: UILabel! {
         didSet {
-            musicNameLabel.textColor = .black
+            musicNameLabel.textColor = .label
         }
     }
     @IBOutlet private var artistNameLabel: UILabel! {
@@ -21,25 +22,18 @@ final class SearchMusicListTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
 
-    func configureCell(music: Music) {
-        musicNameLabel.text = music.name
-        artistNameLabel.text = music.artists
-        Task {
-            let image = await fetchImageData(from: music.thumbnail)
-            DispatchQueue.main.async {
-                self.thumbnailImageView.image = image
-            }
-        }
+    func configureCell(_ data: SearchMusicListTableViewCell.Data) {
+        musicNameLabel.text = data.musicName
+        artistNameLabel.text = data.artistName
+        thumbnailImageView.image = data.thumbnail
     }
 
-    func fetchImageData(from url: URL) async -> UIImage {
-        let defaultImage: UIImage = UIImage(systemName: "square.stack")!
-        do {
-            let (imageData, _) = try await URLSession.shared.data(for: URLRequest(url: url))
-            return UIImage(data: imageData) ?? defaultImage
-        } catch {
-            return defaultImage
-        }
-    }
+}
 
+extension SearchMusicListTableViewCell {
+    struct Data {
+        let thumbnail: UIImage
+        let musicName: String
+        let artistName: String
+    }
 }
