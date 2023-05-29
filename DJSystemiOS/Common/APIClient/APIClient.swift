@@ -7,6 +7,7 @@ protocol APIClientProtocol {
 }
 
 struct APIClient {
+    static let shared: APIClient = .init(baseURL: AppConfig.BaseAPIURL)
     private let urlSession: URLSession
     private let baseURL: URL
     private let encoder: JSONEncoder = {

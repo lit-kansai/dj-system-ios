@@ -1,119 +1,137 @@
+import PKHUD
 import SnapKit
 import UIKit
 
-class SearchMusicViewController: UIViewController {
-    let searchMusicSearchBar = UISearchBar()
-    let searchMusicTableView = UITableView()
+final class SearchMusicViewController: UIViewController, Transitioner {
+    private let searchBar = UISearchBar()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(R.nib.searchMusicListTableViewCell)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
 
-    var searchWord: String = ""
+    private let roomId: String
+    private let roomAPI: SearchMusicProtocol
+    private let router: SearchMusicRouterProtocol
 
-    var musics: [Music] = [] {
-        didSet {
-            searchMusicTableView.reloadData()
-        }
+    private var searchQuery: String = ""
+    private var musics: [Music] = []
+    private var images: [URL: UIImage] = [:]
+
+    private let defaultThumbnailImage = UIImage(systemName: "square.stack")!
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    init(roomId: String, roomAPI: SearchMusicProtocol, router: SearchMusicRouterProtocol) {
+        self.roomId = roomId
+        self.roomAPI = roomAPI
+        self.router = router
+        super.init(nibName: nil, bundle: nil)
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        searchMusicSearchBar.delegate = self
-        searchMusicTableView.delegate = self
-        searchMusicTableView.dataSource = self
-
+        searchBar.delegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
         setUpUI()
-        searchMusicTableView.register(UINib(nibName: "SearchMusicListTableViewCell", bundle: nil), forCellReuseIdentifier: "Cell")
     }
 
-    func setUpUI() {
-        searchMusicSearchBar.barTintColor = UIColor(hex: "1E1E1E")
-        searchMusicSearchBar.backgroundColor = UIColor(hex: "1E1E1E")
-        searchMusicSearchBar.searchTextField.textColor = UIColor(hex: "EBEBF5", alpha: 0.6)
-        view.addSubview(searchMusicSearchBar)
-        searchMusicSearchBar.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            $0.left.equalToSuperview()
-            $0.right.equalToSuperview()
+    private func searchMusic(with query: String, roomId: String) async {
+        HUD.show(.progress)
+        let inputs: Room.API.SearchMusicInputs = .init(roomId: roomId, query: query)
+        let searchMusicResult = await roomAPI.searchMusic(inputs: inputs)
+
+        switch searchMusicResult {
+        case .success(let _musics):
+            musics = _musics
+            images = await ImageLoader.fetchImages(from: musics.map { $0.thumbnail })
+                .mapValues { $0 ?? defaultThumbnailImage }
+            tableView.reloadData()
+        case .failure(let error):
+            presentAPIErrorAlert(message: error.localizedDescription)
         }
 
-        view.addSubview(searchMusicTableView)
-        searchMusicTableView.snp.makeConstraints {
-            $0.top.equalTo(searchMusicSearchBar.snp.bottom)
-            $0.width.equalToSuperview()
-            $0.bottom.equalToSuperview()
-        }
+        HUD.hide()
     }
 
-    func fetchSearchedMusic() async throws -> ([Music]) {
-        Task {
-            let decoder: JSONDecoder = {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                return decoder
-            }()
-            let encodingSearchWord = searchWord.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-            let requestUrl = URL(string: "https://dj-api.life-is-tech.com/room/sample-gassi/music/search?q=\(encodingSearchWord!))")
-            let urlRequest = URLRequest(url: requestUrl!)
-            do {
-                let (data, _) = try await URLSession.shared.data(for: urlRequest)
-                let music = try decoder.decode([Music].self, from: data)
-                musics = music
-            } catch {
-                doAPIErrorAlert()
-            }
-        }
-        return musics
-    }
-
-    func doAPIErrorAlert() {
-        let alert = UIAlertController(title: "検索失敗", message: "検索することができませんでした", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        self.present(alert, animated: true, completion: nil)
-    }
-
-    func doSearchBarErrorAlert() {
-        let alert = UIAlertController(title: "取得失敗", message: "検索バーの言葉を取得できませんでした。", preferredStyle: .alert)
+    private func presentAPIErrorAlert(title: String = "エラーが発生しました", message: String) {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
+        )
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         self.present(alert, animated: true, completion: nil)
     }
 }
 
-
-
+// MARK: UISearchBarDelegate
 extension SearchMusicViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
-        if let searchWord = searchBar.text {
-            self.searchWord = searchWord
-            Task {
-                do {
-                    musics = try await fetchSearchedMusic()
-                    searchMusicTableView.reloadData()
-                } catch {
-                    doSearchBarErrorAlert()
-                }
-            }
+        guard let text = searchBar.text else { return }
+        searchQuery = text
+        Task {
+            await searchMusic(with: searchQuery, roomId: roomId)
         }
     }
 }
 
+// MARK: UITableViewDelegate
 extension SearchMusicViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 69
+        return SearchMusicListTableViewCell.height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let vc: UIViewController = RequestMusicViewController(roomId: "sampleID", music: musics[indexPath.row])
-        navigationController?.pushViewController(vc, animated: true)
-      }
+        guard let nc = navigationController else { return }
+        router.transitionToRequestMusicPage(nc, roomId: roomId, music: musics[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+
 }
 
+// MARK: UITableViewDataSource
 extension SearchMusicViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return musics.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! SearchMusicListTableViewCell
-        cell.setData(music: musics[indexPath.row])
+        let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.searchMusicListTableViewCell, for: indexPath)
+        guard let cell = cell else { fatalError("Invalid TableViewCell") }
+
+        let music = musics[indexPath.row]
+        let thumbnail = images[music.thumbnail] ?? defaultThumbnailImage
+        cell.configureCell(.init(thumbnail: thumbnail, musicName: music.name, artistName: music.artists))
         return cell
     }
+}
+
+// MARK: UI
+extension SearchMusicViewController {
+    private func setUpUI() {
+        view.addSubview(searchBar)
+        searchBar.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.left.equalToSuperview()
+            $0.right.equalToSuperview()
+        }
+
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(searchBar.snp.bottom)
+            $0.width.equalToSuperview()
+            $0.bottom.equalToSuperview()
+        }
+
+        navigationController?.navigationBar.backgroundColor = .systemBackground
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "曲を探す"
+    }
+
 }
