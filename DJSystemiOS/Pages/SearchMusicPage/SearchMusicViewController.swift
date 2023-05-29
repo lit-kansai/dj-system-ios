@@ -4,13 +4,22 @@ import UIKit
 
 final class SearchMusicViewController: UIViewController, Transitioner {
     private let searchBar = UISearchBar()
-    private let tableView = UITableView()
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(R.nib.searchMusicListTableViewCell)
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+
     private let roomId: String
     private let roomAPI: SearchMusicProtocol
     private let router: SearchMusicRouterProtocol
 
     private var searchQuery: String = ""
     private var musics: [Music] = []
+    private var images: [URL: UIImage] = [:]
+
+    private let defaultThumbnailImage = UIImage(systemName: "square.stack")!
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -28,21 +37,24 @@ final class SearchMusicViewController: UIViewController, Transitioner {
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(R.nib.searchMusicListTableViewCell)
         setUpUI()
     }
 
     private func searchMusic(with query: String, roomId: String) async {
-        let inputs: Room.API.SearchMusicInputs = .init(roomId: roomId, query: query)
         HUD.show(.progress)
+        let inputs: Room.API.SearchMusicInputs = .init(roomId: roomId, query: query)
         let searchMusicResult = await roomAPI.searchMusic(inputs: inputs)
+
         switch searchMusicResult {
-        case .success(let musics):
-            self.musics = musics
+        case .success(let _musics):
+            musics = _musics
+            images = await ImageLoader.fetchImages(from: musics.map { $0.thumbnail })
+                .mapValues { $0 ?? defaultThumbnailImage }
             tableView.reloadData()
         case .failure(let error):
             presentAPIErrorAlert(message: error.localizedDescription)
         }
+
         HUD.hide()
     }
 
@@ -72,7 +84,7 @@ extension SearchMusicViewController: UISearchBarDelegate {
 // MARK: UITableViewDelegate
 extension SearchMusicViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 69
+        return SearchMusicListTableViewCell.height
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -81,14 +93,6 @@ extension SearchMusicViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return musics.isEmpty ? 0 : 1
-    }
-
-    func tableView(_ tableView: UITableView,
-                   titleForHeaderInSection section: Int) -> String? {
-        return "検索結果"
-    }
 }
 
 // MARK: UITableViewDataSource
@@ -100,7 +104,10 @@ extension SearchMusicViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: R.reuseIdentifier.searchMusicListTableViewCell, for: indexPath)
         guard let cell = cell else { fatalError("Invalid TableViewCell") }
-        cell.configureCell(music: musics[indexPath.row])
+
+        let music = musics[indexPath.row]
+        let thumbnail = images[music.thumbnail] ?? defaultThumbnailImage
+        cell.configureCell(.init(thumbnail: thumbnail, musicName: music.name, artistName: music.artists))
         return cell
     }
 }
@@ -122,7 +129,7 @@ extension SearchMusicViewController {
             $0.bottom.equalToSuperview()
         }
 
-        navigationController?.navigationBar.backgroundColor = .white
+        navigationController?.navigationBar.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "曲を探す"
     }
