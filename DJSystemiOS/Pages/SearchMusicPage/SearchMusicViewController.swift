@@ -129,7 +129,7 @@ extension SearchMusicViewController {
             $0.bottom.equalToSuperview()
         }
 
-        navigationController?.navigationBar.backgroundColor = .systemBackground
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "曲を探す"
     }

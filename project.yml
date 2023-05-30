@@ -103,7 +103,6 @@ targets:
       - path: ./Scripts/swiftlint.sh
         basedOnDependencyAnalysis: false
         name: SwiftLint
-        basedOnDependencyAnalysis: true
         shell: "/bin/zsh"
 
   DJSystemiOSTests:

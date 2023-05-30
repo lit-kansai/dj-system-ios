@@ -10,7 +10,7 @@ extension Room.API {
 }
 
 protocol GetRoomAPIProtocol {
-    func getRoom(id: String) async throws -> Result<Room.API.GetRoomResponse, APIClientError>
+    func getRoom(id: String) async -> Result<Room.API.GetRoomResponse, APIClientError>
 }
 
 extension Room.API: GetRoomAPIProtocol {
