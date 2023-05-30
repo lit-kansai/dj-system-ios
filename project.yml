@@ -1,6 +1,8 @@
 name: DJSystemiOS
 attributes:
   ORGANIZATIONAME: "Tomoya Tanaka"
+  LastUpgradeCheck: "1430"
+  BuildIndependentTargetsInParallel: true
 
 options:
   bundleIdPrefix: com.lit-kansai.dj-system-ios
@@ -18,6 +20,8 @@ configs:
 schemes: 
   DJSystemiOS:
     build:
+      parallelizeBuild: true
+      buildImplicitDependencies: true
       targets:
         DJSystemiOS: all
     run:
@@ -97,6 +101,7 @@ targets:
           - $(SRCROOT)/DJSystemiOS/Generated/R.generated.swift
         shell: "/bin/zsh"
       - path: ./Scripts/swiftlint.sh
+        basedOnDependencyAnalysis: false
         name: SwiftLint
         basedOnDependencyAnalysis: true
         shell: "/bin/zsh"
