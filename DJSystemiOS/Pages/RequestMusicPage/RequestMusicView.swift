@@ -14,17 +14,6 @@ struct RequestMusicView: View {
     var body: some View {
         VStack {
             VStack {
-                Text("リクエストするルーム")
-                    .font(.title2)
-                    .bold()
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.vertical, 1)
-                Text("ディジェクマクン")
-                    .font(.subheadline)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            .padding(.vertical)
-            VStack {
                 Text("リクエストする楽曲")
                     .font(.title2)
                     .bold()
@@ -107,7 +96,7 @@ extension RequestMusicView {
 
 struct RequestMusicView_Previews: PreviewProvider {
     static var previews: some View {
-        RequestMusicView(controller: RequestMusicViewController(roomId: "sample-gassi", music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!)), music: Music(id: "spotify:track:67T4aWFCAbMNWKamvI3piH", name: "ray", artists: "BUMP OF CHICKEN, 初音ミク", thumbnail: URL(string: "https://i.scdn.co/image/ab67616d0000b2731bc3a96706495fb0a1dbdffd")!))
+        RequestMusicView(controller: RequestMusicViewController(cooltimeService: Factory.cooltimeService, roomId: "sample-gassi", music: .mockData), music: .mockData)
     }
 }
 

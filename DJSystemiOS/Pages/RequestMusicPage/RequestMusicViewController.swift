@@ -9,14 +9,16 @@ protocol RequestMusicViewControllerProtocol: AnyObject {
 
 class RequestMusicViewController: UIViewController {
     @ObservedObject var state: RequestMusicView.DataSource = .init()
-    var roomId: String
-    var music: Music
+    private let cooltimeService: CooltimeService
+    private let roomId: String
+    private let music: Music
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(roomId: String, music: Music) {
+    init(cooltimeService: CooltimeService, roomId: String, music: Music) {
+        self.cooltimeService = cooltimeService
         self.roomId = roomId
         self.music = music
         super.init(nibName: nil, bundle: nil)
@@ -48,6 +50,7 @@ extension RequestMusicViewController: RequestMusicViewControllerProtocol {
         case .success:
             HUD.flash(.success, delay: 1.0)
             guard let navigationController = self.navigationController else { return }
+            cooltimeService.saveCooltime(unixTime: Constants.constants)
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
         case .failure(let error):
             // ここでアラート出したい
