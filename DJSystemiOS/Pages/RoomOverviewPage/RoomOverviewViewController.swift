@@ -30,17 +30,26 @@ class RoomOverviewViewController: UIViewController {
         view.addSubview(hostingVC.view)
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
+
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = state.name
     }
 }
 
 extension RoomOverviewViewController: RoomOverviewControllerProtocol {
     func toSearchMusicPage() {
+        let cooltimeService = Factory.cooltimeService
+        guard cooltimeService.hasExpired else {
+            let cooltimeViewController = CooltimeViewController()
+            navigationController?.pushViewController(cooltimeViewController, animated: true)
+            return
+        }
+
         let searchMusicViewController = SearchMusicViewController(
             roomId: "sample-gassi",
             roomAPI: Room.API(),
             router: SearchMusicRouter()
         )
-
-        self.navigationController?.pushViewController(searchMusicViewController, animated: true)
+        navigationController?.pushViewController(searchMusicViewController, animated: true)
     }
 }

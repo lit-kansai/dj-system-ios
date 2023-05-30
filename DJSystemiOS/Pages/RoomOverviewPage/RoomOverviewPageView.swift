@@ -12,14 +12,6 @@ struct RoomOverviewPageView: View {
 
     var body: some View {
         VStack {
-            if let name = controller?.state.name {
-                Text(name)
-                    .foregroundColor(Color(.label))
-                    .font(.system(size: 34, weight: .bold, design: .default))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.bottom)
-            }
-
             if let description = controller?.state.description {
                 Text(description)
                     .foregroundColor(Color(.label))
