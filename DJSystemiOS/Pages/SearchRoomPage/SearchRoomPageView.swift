@@ -1,23 +1,11 @@
 import SwiftUI
 
 struct SearchRoomPageView: View {
-    weak var controller: SearchRoomPageControllerProtocol?
+    weak var controller: SearchRoomViewControllerProtocol?
     @ObservedObject var dataSource: DataSource
-
-    init(controller: SearchRoomPageControllerProtocol) {
-        self.controller = controller
-        self.dataSource = controller.state
-    }
 
     var body: some View {
         VStack {
-
-            Text("ルームを探す")
-                .foregroundColor(Color(.label))
-                .font(.system(size: 34, weight: .bold, design: .default))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.bottom)
-
             Text("IDから探す")
                 .foregroundColor(Color(.label))
                 .font(.system(size: 24, weight: .bold, design: .default))
@@ -36,13 +24,13 @@ struct SearchRoomPageView: View {
                 .frame(maxWidth: .infinity, minHeight: 42)
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.black, lineWidth: 1)
+                        .stroke(Color(uiColor: .systemGray), lineWidth: 1)
                 )
                 .padding(.bottom)
 
             Button {
                 Task {
-                    await (try controller?.searchRoom(byId: dataSource.searchQuery))
+                    await controller?.searchRoom(byId: dataSource.searchQuery)
                 }
             } label: {
                 // ボタンのタップ領域をここで指定
@@ -51,7 +39,7 @@ struct SearchRoomPageView: View {
             }
             .background(Color.pink)
             .foregroundColor(Color(.white))
-            .font(.system(size: 12, weight: .bold, design: .default))
+            .font(.system(size: 14, weight: .bold, design: .default))
             .cornerRadius(10)
 
             // Roomが見つかったかの判定
@@ -62,13 +50,12 @@ struct SearchRoomPageView: View {
             }
         }
         .padding(16)
-
         Spacer()
     }
 }
 
 extension SearchRoomPageView {
-    class DataSource: ObservableObject {
+    final class DataSource: ObservableObject {
         @Published var searchQuery = ""
         @Published var currentRoom: RoomOverview?
         @Published var showResultText = false
