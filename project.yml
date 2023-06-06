@@ -5,7 +5,7 @@ attributes:
   BuildIndependentTargetsInParallel: true
 
 options:
-  bundleIdPrefix: com.lit-kansai.dj-system-ios
+  bundleIdPrefix: com.lit-kansai.dj-system
   developmentLanguage: ja
   deploymentTarget: 15.0
   groupOrdering: 
@@ -94,8 +94,6 @@ targets:
     preBuildScripts:
       - path: ./Scripts/rswift.sh
         name: R.Swift
-        inputFiles:
-          - $TEMP_DIR/rswift-lastrun
         basedOnDependencyAnalysis: true
         outputFiles:
           - $(SRCROOT)/DJSystemiOS/Generated/R.generated.swift
