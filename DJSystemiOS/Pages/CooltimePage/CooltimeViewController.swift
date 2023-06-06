@@ -11,16 +11,15 @@ class CooltimeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        cooltimeService.saveCooltime(unixTime: Date().timeIntervalSince1970 + 30)
         updateCooltimeLabel()
 
-        if let _ = cooltimeService.getRemainingCooltime() {
-            timer()
+        if cooltimeService.hasExpired == false {
+            startTimer()
         }
 
     }
 
-    func timer() {
+    func startTimer() {
         coolTimeTimer = Timer.scheduledTimer(
             timeInterval: 1.0,
             target: self,
@@ -32,11 +31,11 @@ class CooltimeViewController: UIViewController {
     }
 
     func updateCooltimeLabel() {
-        if let leftTime = cooltimeService.getRemainingCooltime() {
-            timerLabel.text = leftTime
-        } else {
+        guard let leftTime = cooltimeService.getRemainingCooltime() else {
             return
         }
+
+        timerLabel.text = leftTime
     }
 
     @objc
