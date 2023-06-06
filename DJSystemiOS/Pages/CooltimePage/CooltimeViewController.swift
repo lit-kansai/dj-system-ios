@@ -11,6 +11,7 @@ class CooltimeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        cooltimeService.saveCooltime(unixTime: Date().timeIntervalSince1970 + 30)
         updateCooltimeLabel()
 
         if let _ = cooltimeService.getRemainingCooltime() {
@@ -43,6 +44,7 @@ class CooltimeViewController: UIViewController {
         updateCooltimeLabel()
 
         if cooltimeService.hasExpired {
+            timerLabel.text = "00:00"
             coolTimeTimer.invalidate()
         }
     }
