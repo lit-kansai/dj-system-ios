@@ -13,7 +13,7 @@ class CooltimeViewController: UIViewController {
 
         updateCooltimeLabel()
 
-        if cooltimeService.hasExpired {
+        if !cooltimeService.hasExpired {
             startTimer()
         }
 
