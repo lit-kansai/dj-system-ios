@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,22 +17,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="cooltime" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J9M-IA-nhu">
-                                <rect key="frame" x="144" y="281" width="66" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaz-cf-0CX">
+                                <rect key="frame" x="82.666666666666686" y="144" width="228" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="EaN-wU-suf"/>
+                                    <constraint firstAttribute="width" constant="228" id="m5n-2Z-hzZ"/>
+                                </constraints>
+                                <string key="text">次のリクエストまで
+ちょっと待ってね</string>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OW5-2l-YTO">
+                                <rect key="frame" x="91.666666666666686" y="378" width="210" height="96"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="96" id="2VG-KA-Q9P"/>
+                                    <constraint firstAttribute="width" constant="210" id="fD0-O3-p6S"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="70"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="OW5-2l-YTO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1Sb-lM-wIB"/>
+                            <constraint firstItem="eaz-cf-0CX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="RFO-C9-eOB"/>
+                            <constraint firstItem="eaz-cf-0CX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rhq-Gn-k49"/>
+                            <constraint firstItem="OW5-2l-YTO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="v20-kK-hot"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="q73-cr-nSi"/>
+                    <connections>
+                        <outlet property="timerLabel" destination="OW5-2l-YTO" id="vqS-qW-a1h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-25" y="-507"/>
+            <point key="canvasLocation" x="-25.190839694656489" y="-507.04225352112678"/>
         </scene>
     </scenes>
     <resources>

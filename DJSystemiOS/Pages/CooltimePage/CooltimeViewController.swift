@@ -2,23 +2,50 @@ import UIKit
 
 class CooltimeViewController: UIViewController {
 
-    /*TODO:
-     画面がロードされたときにCooltimeServiceからクールタイムを取得し表示する
-     1秒間隔でCooltimeServiceから残り時間を取得し、更新する
-     クールタイムが0になった時、なったらタイマーを止める
-     */
+    @IBOutlet private var timerLabel: UILabel!
+
+    let cooltimeService = CooltimeService(dataSource: CooltimeDataSource())
+
+    var coolTimeTimer = Timer()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let cooltimeService = CooltimeService(dataSource: CooltimeDataSource())
+        updateCooltimeLabel()
 
-        // 残り時間を取得する
-        let remainingTime = cooltimeService.getRemainingCooltime()
-        // 残り時間をUserDefaultsを保存する
-        //    https://wa3.i-3-i.info/word18474.html
-        let time = Date().timeIntervalSince1970 + 1000
-        cooltimeService.saveCooltime(unixTime: time)
+        if !cooltimeService.hasExpired {
+            startTimer()
+        }
+
+    }
+
+    func startTimer() {
+        coolTimeTimer = Timer.scheduledTimer(
+            timeInterval: 1.0,
+            target: self,
+            selector: #selector(countDown),
+            userInfo: nil,
+            repeats: true
+        )
+
+    }
+
+    func updateCooltimeLabel() {
+        guard let leftTime = cooltimeService.getRemainingCooltime() else {
+            return
+        }
+
+        timerLabel.text = leftTime
+    }
+
+    @objc
+    func countDown() {
+        updateCooltimeLabel()
+
+        if cooltimeService.hasExpired {
+            timerLabel.text = "00:00"
+            coolTimeTimer.invalidate()
+        }
     }
 
 }
