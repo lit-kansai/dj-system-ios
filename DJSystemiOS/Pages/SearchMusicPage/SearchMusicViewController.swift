@@ -34,6 +34,7 @@ final class SearchMusicViewController: UIViewController, Transitioner {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.removeViewController(preserving: CooltimeViewController.self, animated: true)
         searchBar.delegate = self
         tableView.delegate = self
         tableView.dataSource = self

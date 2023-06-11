@@ -15,13 +15,19 @@ class CompleteRequestViewController: UIViewController {
         view.addSubview(hostingVC.view)
         hostingVC.didMove(toParent: self)
         hostingVC.coverView(parent: view)
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
     }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+
 }
 
 extension CompleteRequestViewController: CompleteRequestViewControllerProtocol {
     func goBack() {
         guard let navigationController = self.navigationController else { return }
-        navigationController.popToViewControllerOfType(preserving: SearchRoomPageViewController.self, animated: true)
+        navigationController.popToViewControllerOfType(preserving: SearchRoomViewController.self, animated: true)
     }
 }

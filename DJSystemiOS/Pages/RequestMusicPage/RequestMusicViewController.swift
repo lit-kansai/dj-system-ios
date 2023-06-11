@@ -50,7 +50,7 @@ extension RequestMusicViewController: RequestMusicViewControllerProtocol {
         case .success:
             HUD.flash(.success, delay: 1.0)
             guard let navigationController = self.navigationController else { return }
-            cooltimeService.saveCooltime(unixTime: Constants.constants)
+            cooltimeService.saveCooltime(unixTime: Constants.cooltime)
             navigationController.pushViewController(CompleteRequestViewController(), animated: true)
         case .failure(let error):
             // ここでアラート出したい
