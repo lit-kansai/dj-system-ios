@@ -1,10 +1,3 @@
-//
-//  SceneDelegate.swift
-//  DJSystemiOS
-//
-//  Created by Tomoya Tanaka on 2023/02/13.
-//
-
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
@@ -20,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         // MARK: 自分が実装してる画面に書き換えてね
-        window.rootViewController = R.storyboard.main.homePageViewController()
+        window.rootViewController = UINavigationController(rootViewController: SearchRoomViewController(roomAPI: Room.API(), router: SearchRoomRouter()))
         self.window = window
         self.window?.makeKeyAndVisible()
     }
