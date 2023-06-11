@@ -7,7 +7,7 @@ protocol SearchRoomViewControllerProtocol: Transitioner {
     func searchRoom(byId id: String) async
 }
 
-final class SearchRoomPageViewController: UIViewController {
+final class SearchRoomViewController: UIViewController {
     var state: SearchRoomPageView.DataSource = .init()
 
     private let roomAPI: GetRoomAPIProtocol
@@ -36,7 +36,7 @@ final class SearchRoomPageViewController: UIViewController {
 }
 
 // MARK: UI
-extension SearchRoomPageViewController {
+extension SearchRoomViewController {
     private func presentErrorAlert(title: String = "エラーが発生しました", message: String) {
         let alert = UIAlertController(
             title: title,
@@ -62,7 +62,7 @@ extension SearchRoomPageViewController {
 }
 
 // MARK: State
-extension SearchRoomPageViewController {
+extension SearchRoomViewController {
     private func clearState() {
         state.currentRoom = .init(id: "", name: "", description: "")
         state.searchQuery = ""
@@ -71,7 +71,7 @@ extension SearchRoomPageViewController {
 }
 
 // MARK: SearchRoomViewControllerProtocol
-extension SearchRoomPageViewController: SearchRoomViewControllerProtocol {
+extension SearchRoomViewController: SearchRoomViewControllerProtocol {
     func searchRoom(byId id: String) async {
         // ローディング開始
         HUD.show(.progress)
