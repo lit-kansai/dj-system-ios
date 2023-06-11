@@ -5,7 +5,6 @@ attributes:
   BuildIndependentTargetsInParallel: true
 
 options:
-  bundleIdPrefix: com.lit-kansai.dj-system
   developmentLanguage: ja
   deploymentTarget: 15.0
   groupOrdering: 
@@ -66,24 +65,28 @@ targets:
         optional: true
     settings:
       base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.lit-kansai.dj-system
         BUNDLE_DISPLAY_NAME: "DJSystemiOS"
-        CURRENT_PROJECT_BUILD_NUMBER: 1
-        MARKETING_VERSION: 1.0.0
+        CURRENT_PROJECT_BUILD_NUMBER: 3
+        MARKETING_VERSION: 0.0.1
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         # DEVELOPMENT_TEAM: 4RZ24YRQ42
     info:
       path: DJSystemiOS/Info.plist
       properties:
+        NSHumanReadableCopyright: "LiT Kansai Mentors"
+        LSApplicationCategoryType: public.app-category.entertainment
         UISupportedInterfaceOrientations~iphone: [UIInterfaceOrientationPortrait]
         UISupportedInterfaceOrientations~ipad: [UIInterfaceOrientationPortrait]
         UILaunchStoryboardName: LaunchScreen
+        UIRequiresFullScreen: true
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
           UISceneConfigurations:
             UIWindowSceneSessionRoleApplication:
               - UISceneConfigurationName: Default Configuration
                 UISceneDelegateClassName: $(PRODUCT_MODULE_NAME).SceneDelegate
-        CFBundleDisplayName: $(BUNDLE_DISPLAY_NAME)
+        CFBundleDisplayName: DJSystem
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_BUILD_NUMBER)
         CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
@@ -94,7 +97,9 @@ targets:
     preBuildScripts:
       - path: ./Scripts/rswift.sh
         name: R.Swift
-        basedOnDependencyAnalysis: true
+        inputFiles:
+          - $TEMP_DIR/rswift-lastrun
+        basedOnDependencyAnalysis: false
         outputFiles:
           - $(SRCROOT)/DJSystemiOS/Generated/R.generated.swift
         shell: "/bin/zsh"
