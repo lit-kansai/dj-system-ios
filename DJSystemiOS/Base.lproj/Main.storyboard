@@ -9,19 +9,19 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
-        <scene sceneID="tne-QT-ifu">
+        <!--Cooltime View Controller-->
+        <scene sceneID="1bD-Rn-btJ">
             <objects>
-                <viewController storyboardIdentifier="HomePageViewController" id="BYZ-38-t0r" customClass="CooltimeViewController" customModule="DJSystemiOS" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                <viewController storyboardIdentifier="CooltimeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xgY-4H-MpH" customClass="CooltimeViewController" customModule="DJSystemiOS" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="h1Q-Jg-See">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eaz-cf-0CX">
-                                <rect key="frame" x="82.666666666666686" y="144" width="228" height="60"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A47-MX-gF9">
+                                <rect key="frame" x="82.666666666666686" y="145" width="228" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="EaN-wU-suf"/>
-                                    <constraint firstAttribute="width" constant="228" id="m5n-2Z-hzZ"/>
+                                    <constraint firstAttribute="height" constant="60" id="0am-M4-IF3"/>
+                                    <constraint firstAttribute="width" constant="228" id="l9t-yh-ZQN"/>
                                 </constraints>
                                 <string key="text">次のリクエストまで
 ちょっと待ってね</string>
@@ -29,34 +29,33 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OW5-2l-YTO">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="99:99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AvW-68-47b">
                                 <rect key="frame" x="91.666666666666686" y="378" width="210" height="96"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="96" id="2VG-KA-Q9P"/>
-                                    <constraint firstAttribute="width" constant="210" id="fD0-O3-p6S"/>
+                                    <constraint firstAttribute="width" constant="210" id="94U-ot-sXB"/>
+                                    <constraint firstAttribute="height" constant="96" id="UKH-GA-mJP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="70"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <viewLayoutGuide key="safeArea" id="aJs-Fc-vuE"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="OW5-2l-YTO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="1Sb-lM-wIB"/>
-                            <constraint firstItem="eaz-cf-0CX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="85" id="RFO-C9-eOB"/>
-                            <constraint firstItem="eaz-cf-0CX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="rhq-Gn-k49"/>
-                            <constraint firstItem="OW5-2l-YTO" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="v20-kK-hot"/>
+                            <constraint firstItem="AvW-68-47b" firstAttribute="centerY" secondItem="h1Q-Jg-See" secondAttribute="centerY" id="Ope-Nx-7YH"/>
+                            <constraint firstItem="A47-MX-gF9" firstAttribute="centerX" secondItem="h1Q-Jg-See" secondAttribute="centerX" id="QNe-lL-zoA"/>
+                            <constraint firstItem="A47-MX-gF9" firstAttribute="top" secondItem="aJs-Fc-vuE" secondAttribute="top" constant="86" id="v9m-9A-pH9"/>
+                            <constraint firstItem="AvW-68-47b" firstAttribute="centerX" secondItem="h1Q-Jg-See" secondAttribute="centerX" id="zM8-R0-vTx"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="q73-cr-nSi"/>
                     <connections>
-                        <outlet property="timerLabel" destination="OW5-2l-YTO" id="vqS-qW-a1h"/>
+                        <outlet property="timerLabel" destination="AvW-68-47b" id="cCp-RQ-pIz"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CrE-Ir-s6v" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-25.190839694656489" y="-507.04225352112678"/>
+            <point key="canvasLocation" x="321" y="-507"/>
         </scene>
     </scenes>
     <resources>
