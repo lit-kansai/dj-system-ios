@@ -40,16 +40,15 @@ extension RoomOverviewViewController: RoomOverviewControllerProtocol {
     func toSearchMusicPage() {
         let cooltimeService = Factory.cooltimeService
         guard cooltimeService.hasExpired else {
-            let cooltimeViewController = CooltimeViewController()
+            let cooltimeViewController = R.storyboard.main.cooltimeViewController { coder in
+                CooltimeViewController(coder: coder, cooltimeService: Factory.cooltimeService, roomId: self.roomOverview.id)
+            }
+            guard let cooltimeViewController else { fatalError("Failed to create cooltimeViewController") }
             navigationController?.pushViewController(cooltimeViewController, animated: true)
             return
         }
 
-        let searchMusicViewController = SearchMusicViewController(
-            roomId: "sample-gassi",
-            roomAPI: Room.API(),
-            router: SearchMusicRouter()
-        )
+        let searchMusicViewController = Factory.searchMusicViewController(roomId: roomOverview.id)
         navigationController?.pushViewController(searchMusicViewController, animated: true)
     }
 }
