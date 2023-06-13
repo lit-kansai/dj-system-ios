@@ -1,7 +1,7 @@
 import Foundation
 
 extension Room.API {
-    typealias GetRequestedMusicsResponse = [Music]
+    typealias GetRequestedMusicsResponse = [DataModel.Music]
 }
 
 protocol GetRequestMusicsProtocol {
@@ -10,6 +10,6 @@ protocol GetRequestMusicsProtocol {
 
 extension Room.API: GetRequestMusicsProtocol {
     func getRequestMusics(of id: String) async -> Result<GetRequestedMusicsResponse, APIClientError> {
-        return .success(Music.Mock.musics)
+        return .success(DataModel.Music.Mock.musics)
     }
 }

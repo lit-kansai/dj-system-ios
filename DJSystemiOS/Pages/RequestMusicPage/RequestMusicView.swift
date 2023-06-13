@@ -3,9 +3,9 @@ import SwiftUI
 struct RequestMusicView: View {
     weak var controller: RequestMusicViewControllerProtocol?
     @ObservedObject var dataSource: DataSource
-    let music: Music
+    let music: DataModel.Music
 
-    init(controller: RequestMusicViewControllerProtocol, music: Music) {
+    init(controller: RequestMusicViewControllerProtocol, music: DataModel.Music) {
         self.controller = controller
         self.dataSource = controller.state
         self.music = music
