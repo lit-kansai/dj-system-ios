@@ -1,11 +1,11 @@
 import UIKit
 
 protocol SearchMusicRouterProtocol: AnyObject {
-    func transitionToRequestMusicPage(_ navigationController: UINavigationController, roomId: String, music: Music)
+    func transitionToRequestMusicPage(_ navigationController: UINavigationController, roomId: String, music: DataModel.Music)
 }
 
 final class SearchMusicRouter: SearchMusicRouterProtocol {
-    func transitionToRequestMusicPage(_ navigationController: UINavigationController, roomId: String, music: Music) {
+    func transitionToRequestMusicPage(_ navigationController: UINavigationController, roomId: String, music: DataModel.Music) {
         let cooltimeSerivce = CooltimeService(dataSource: CooltimeDataSource())
         // 遷移先のRoomOverViewController
         let requestMusicViewController = RequestMusicViewController(cooltimeService: cooltimeSerivce, roomId: roomId, music: music)

@@ -5,10 +5,9 @@ extension Room.API {
         let roomId: String
         let query: String
     }
-    typealias SearchMusicResponse = [Music]
+    typealias SearchMusicResponse = [DataModel.Music]
 }
 
-// TODO: こいつを実装する
 protocol SearchMusicProtocol {
     func searchMusic(inputs: Room.API.SearchMusicInputs) async -> Result<Room.API.SearchMusicResponse, APIClientError>
 }

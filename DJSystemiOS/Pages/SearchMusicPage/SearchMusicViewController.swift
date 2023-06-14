@@ -16,7 +16,7 @@ final class SearchMusicViewController: UIViewController, Transitioner {
     private let router: SearchMusicRouterProtocol
 
     private var searchQuery: String = ""
-    private var musics: [Music] = []
+    private var musics: [DataModel.Music] = []
     private var images: [URL: UIImage] = [:]
 
     private let defaultThumbnailImage = UIImage(systemName: "square.stack")!

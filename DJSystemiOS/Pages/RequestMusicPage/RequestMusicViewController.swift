@@ -11,13 +11,13 @@ class RequestMusicViewController: UIViewController {
     @ObservedObject var state: RequestMusicView.DataSource = .init()
     private let cooltimeService: CooltimeService
     private let roomId: String
-    private let music: Music
+    private let music: DataModel.Music
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(cooltimeService: CooltimeService, roomId: String, music: Music) {
+    init(cooltimeService: CooltimeService, roomId: String, music: DataModel.Music) {
         self.cooltimeService = cooltimeService
         self.roomId = roomId
         self.music = music

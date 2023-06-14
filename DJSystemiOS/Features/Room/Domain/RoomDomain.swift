@@ -1,4 +1,5 @@
 import Foundation
+import RealmSwift
 
 struct RoomOverview: Codable {
     let id: String
@@ -7,17 +8,19 @@ struct RoomOverview: Codable {
 }
 
 // Realm用にclassで作ってます
-final class RoomHistory {
+final class RoomHistory: Object {
+    @Persisted(primaryKey: true)
+    var id: String
 
-    let id: String
-    let name: String
-    let description: String
-    let emojiIcon: Character
+    @Persisted var name: String
+    @Persisted var detail: String
+    @Persisted var emojiIcon: String
 
-    init(id: String, name: String, description: String, emojiIcon: Character) {
+    init(id: String, name: String, description: String, emojiIcon: String) {
+        super.init()
         self.id = id
         self.name = name
-        self.description = description
+        self.detail = description
         self.emojiIcon = emojiIcon
     }
 
