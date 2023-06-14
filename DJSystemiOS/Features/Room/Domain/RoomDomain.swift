@@ -9,7 +9,9 @@ struct RoomOverview: Codable {
 
 // Realm用にclassで作ってます
 final class RoomHistory: Object {
-    @Persisted(primaryKey: true) var id: String
+    @Persisted(primaryKey: true)
+    var id: String
+
     @Persisted var name: String
     @Persisted var detail: String
     @Persisted var emojiIcon: String
