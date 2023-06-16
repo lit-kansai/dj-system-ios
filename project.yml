@@ -7,11 +7,6 @@ attributes:
 options:
   developmentLanguage: ja
   deploymentTarget: 15.0
-  groupOrdering: 
-    # - pattern: ProjectName
-    #   order: [App, Common, Pages]
-    # - pattern: '^.*Page$'
-    #   order: [View, Presenter, Interactor, Router]
 configs:
   Debug: debug
   Release: release
@@ -73,7 +68,11 @@ targets:
         CURRENT_PROJECT_BUILD_NUMBER: 3
         MARKETING_VERSION: 0.0.1
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        # DEVELOPMENT_TEAM: 4RZ24YRQ42
+      configs:
+        debug:
+          ENVIRONMENT: DEBUG
+        release:
+          ENVIRONMENT: RELEASE
     info:
       path: DJSystemiOS/Info.plist
       properties:
@@ -98,6 +97,7 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_BUILD_NUMBER)
         CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
+        Environment: $(ENVIRONMENT)
     dependencies:
       - package: PKHUD
       - package: RswiftLibrary
