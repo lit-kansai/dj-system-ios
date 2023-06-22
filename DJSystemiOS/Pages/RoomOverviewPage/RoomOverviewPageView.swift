@@ -4,6 +4,7 @@ struct RoomOverviewPageView: View {
 
     weak var controller: RoomOverviewControllerProtocol?
     @ObservedObject var dataSource: DataSource
+    let appGradient: AppGradient = AppGradient.orangeToRed
 
     init(controller: RoomOverviewControllerProtocol) {
         self.controller = controller
@@ -19,18 +20,13 @@ struct RoomOverviewPageView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.bottom, 36)
             }
-
             Button {
                 controller?.toSearchMusicPage()
             } label: {
                 // ボタンのタップ領域をここで指定
                 Text("曲をリクエストする")
-                    .frame(maxWidth: .infinity, minHeight: 42)
             }
-            .background(Color.pink)
-            .foregroundColor(Color(.white))
-            .font(.system(size: 12, weight: .bold, design: .default))
-            .cornerRadius(10)
+            .buttonStyle(AppButtonStyle(gradient: appGradient))
         }
         .padding(16)
 
