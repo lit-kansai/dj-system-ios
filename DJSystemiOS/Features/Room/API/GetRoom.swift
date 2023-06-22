@@ -15,7 +15,7 @@ protocol GetRoomAPIProtocol {
 
 extension Room.API: GetRoomAPIProtocol {
     func getRoom(id: String) async -> Result<GetRoomResponse, APIClientError> {
-        let client = APIClient(baseURL: AppConfig.BaseAPIURL)
+        let client = APIClient(baseURL: AppConfig().BaseAPIURL)
         let result = await client.get(from: .getRoom(roomId: id), dataType: Room.API.GetRoomResponse.self)
         return result
     }

@@ -7,16 +7,11 @@ attributes:
 options:
   developmentLanguage: ja
   deploymentTarget: 15.0
-  groupOrdering: 
-    # - pattern: ProjectName
-    #   order: [App, Common, Pages]
-    # - pattern: '^.*Page$'
-    #   order: [View, Presenter, Interactor, Router]
 configs:
   Debug: debug
   Release: release
 
-schemes: 
+schemes:
   DJSystemiOS:
     build:
       parallelizeBuild: true
@@ -36,6 +31,9 @@ schemes:
       config: Release
 
 packages:
+  QRScanner:
+    url: https://github.com/mercari/QRScanner.git
+    majorVersion: 1.9.0
   PKHUD:
     url: https://github.com/pkluz/PKHUD.git
     majorVersion: 5.4.0
@@ -59,7 +57,7 @@ targets:
     type: application
     platform: iOS
     deploymentTarget: 15.0
-    sources: 
+    sources:
       - path: DJSystemiOS
         excludes:
           - Generated
@@ -73,15 +71,19 @@ targets:
         CURRENT_PROJECT_BUILD_NUMBER: 3
         MARKETING_VERSION: 0.0.1
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        # DEVELOPMENT_TEAM: 4RZ24YRQ42
+      configs:
+        debug:
+          ENVIRONMENT: DEBUG
+        release:
+          ENVIRONMENT: RELEASE
     info:
       path: DJSystemiOS/Info.plist
       properties:
         NSHumanReadableCopyright: "LiT Kansai Mentors"
         LSApplicationCategoryType: public.app-category.entertainment
-        UISupportedInterfaceOrientations~iphone: 
+        UISupportedInterfaceOrientations~iphone:
           - UIInterfaceOrientationPortrait
-        UISupportedInterfaceOrientations~ipad: 
+        UISupportedInterfaceOrientations~ipad:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
@@ -98,11 +100,13 @@ targets:
         CFBundleShortVersionString: $(MARKETING_VERSION)
         CFBundleVersion: $(CURRENT_PROJECT_BUILD_NUMBER)
         CFBundlePackageType: $(PRODUCT_BUNDLE_PACKAGE_TYPE)
+        Environment: $(ENVIRONMENT)
     dependencies:
       - package: PKHUD
       - package: RswiftLibrary
       - package: SnapKit
       - package: RealmSwift
+      - package: QRScanner
     preBuildScripts:
       - path: ./Scripts/rswift.sh
         name: R.Swift
@@ -128,4 +132,3 @@ targets:
       INFOPLIST_FILE: DJSystemiOS/Info.plist
       LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @loader_path/Frameworks"
       LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]: "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks"
-

@@ -14,7 +14,7 @@ protocol SearchMusicProtocol {
 
 extension Room.API: SearchMusicProtocol {
     func searchMusic(inputs: SearchMusicInputs) async -> Result<SearchMusicResponse, APIClientError> {
-        let client = APIClient(baseURL: AppConfig.BaseAPIURL)
+        let client = APIClient(baseURL: AppConfig().BaseAPIURL)
         let requestMusic = await client.get(from: .musicSearch(roomId: inputs.roomId, query: inputs.query), dataType: Room.API.SearchMusicResponse.self)
         return requestMusic
     }
