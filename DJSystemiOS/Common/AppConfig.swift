@@ -11,6 +11,7 @@ enum Environment: String {
 }
 
 struct AppConfig: AppConfigProtocol {
+    static let shared = AppConfig()
     var environment: Environment {
         guard let environmentString = Bundle.main.object(forInfoDictionaryKey: "Environment") as? String,
               let environment = Environment(rawValue: environmentString)
