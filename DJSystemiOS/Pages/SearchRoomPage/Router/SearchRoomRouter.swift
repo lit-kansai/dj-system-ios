@@ -7,7 +7,7 @@ protocol SearchRoomRouterProtocol: AnyObject {
 final class SearchRoomRouter: SearchRoomRouterProtocol {
     func transitionToRoomOverviewPage(_ navigationController: UINavigationController, roomOverview: RoomOverview) {
         // 遷移先のRoomOverViewController
-        let roomOverviewController = RoomOverviewViewController(roomOverview: roomOverview)
+        let roomOverviewController = RoomOverviewViewController(roomAPI: Room.API(), roomOverview: roomOverview)
         // 画面遷移
         navigationController.pushViewController(roomOverviewController, animated: true)
     }

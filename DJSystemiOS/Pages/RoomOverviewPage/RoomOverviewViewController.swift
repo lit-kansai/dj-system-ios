@@ -8,6 +8,7 @@ protocol RoomOverviewControllerProtocol: AnyObject {
 
 class RoomOverviewViewController: UIViewController {
     @ObservedObject var state: RoomOverviewPageView.DataSource
+    private let roomAPI: GetRequestMusicsProtocol
 
     /// ルームの概要
     private let roomOverview: RoomOverview
@@ -16,7 +17,8 @@ class RoomOverviewViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    init(roomOverview: RoomOverview) {
+    init(roomAPI: GetRequestMusicsProtocol, roomOverview: RoomOverview) {
+        self.roomAPI = roomAPI
         self.roomOverview = roomOverview
         self.state = .init(name: roomOverview.name, description: roomOverview.description)
         super.init(nibName: nil, bundle: nil)
@@ -33,6 +35,19 @@ class RoomOverviewViewController: UIViewController {
 
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = state.name
+        Task {
+            let response = await roomAPI.getRequestMusics(of: roomOverview.id)
+            switch response {
+            case .success(let musics):
+                state.musics = musics
+            case .failure(let error):
+                let alert = UIAlertController(title: "エラーが発生しました", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(
+                    UIAlertAction(title: "戻る", style: .cancel)
+                )
+                present(alert, animated: true)
+            }
+        }
     }
 }
 
