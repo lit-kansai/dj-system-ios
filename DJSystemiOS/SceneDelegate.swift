@@ -13,7 +13,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         let window = UIWindow(windowScene: windowScene)
         // MARK: 自分が実装してる画面に書き換えてね
-        window.rootViewController = UINavigationController(rootViewController: SearchRoomViewController(roomAPI: Room.API(), router: SearchRoomRouter()))
+//        window.rootViewController = UINavigationController(rootViewController: SearchRoomViewController(roomAPI: Room.API(), router: SearchRoomRouter()))
+        window.rootViewController = UINavigationController(rootViewController: QRReaderViewController())
         self.window = window
         self.window?.makeKeyAndVisible()
     }
