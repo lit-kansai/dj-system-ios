@@ -24,6 +24,8 @@
 	<string>$(ENVIRONMENT)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera is required to use this application</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>LiT Kansai Mentors</string>
 	<key>UIApplicationSceneManifest</key>
@@ -58,7 +60,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>Camera is required to use this application</string>
 </dict>
 </plist>
