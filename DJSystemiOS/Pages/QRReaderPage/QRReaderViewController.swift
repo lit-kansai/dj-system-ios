@@ -35,7 +35,7 @@ final class QRReaderViewController: UIViewController {
 
     private func showAlert() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            let alert = UIAlertController(title: "Error", message: "Camera is required to use in this application", preferredStyle: .alert)
+            let alert = UIAlertController(title: "エラー", message: "このアプリを使うにはカメラへのアクセスを許可する必要があります。", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
             self?.present(alert, animated: true)
         }
@@ -45,7 +45,7 @@ final class QRReaderViewController: UIViewController {
 extension QRReaderViewController: QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
         print(error)
-        let alert = UIAlertController(title: "Error", message: "This QR Code is invalid", preferredStyle: .alert)
+        let alert = UIAlertController(title: "エラー", message: "このQRコードは無効です", preferredStyle: .alert)
         alert.addAction(.init(title: "OK", style: .default))
         self.present(alert, animated: true)
     }
@@ -57,7 +57,7 @@ extension QRReaderViewController: QRScannerViewDelegate {
             let validURL = roomID
             
         case .failure :
-            let alert = UIAlertController(title: "Error", message: "No room found for this URL", preferredStyle: .alert)
+            let alert = UIAlertController(title: "エラー", message: "このURLに対応するルームが見つかりません。", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
             self.present(alert, animated: true)
         }
