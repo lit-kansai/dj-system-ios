@@ -51,10 +51,11 @@ extension QRReaderViewController: QRScannerViewDelegate {
     }
 
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
-        let requestedRoomID = URL.extractRoomID(inputURL: code)
-        switch requestedRoomID {
-        case .success(let str) :
-            let validURL = str
+        let extractedRoomID = URL.extractRoomID(inputURL: code)
+        switch extractedRoomID {
+        case .success(let roomID) :
+            let validURL = roomID
+            
         case .failure :
             let alert = UIAlertController(title: "Error", message: "No room found for this URL", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
