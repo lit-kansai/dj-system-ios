@@ -55,7 +55,9 @@ extension QRReaderViewController: QRScannerViewDelegate {
         switch extractedRoomID {
         case .success(let roomID) :
             let validURL = roomID
-            
+            let roomOverViewPageView = RoomOverviewViewController(roomAPI: Room.API(), roomOverview: RoomOverview(id: validURL, name: "", description: ""))
+            navigationController?.pushViewController(roomOverViewPageView, animated: true)
+
         case .failure :
             let alert = UIAlertController(title: "エラー", message: "このURLに対応するルームが見つかりません。", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
