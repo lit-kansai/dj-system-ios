@@ -44,7 +44,6 @@ final class QRReaderViewController: UIViewController {
 
 extension QRReaderViewController: QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didFailure error: QRScannerError) {
-        print(error)
         let alert = UIAlertController(title: "エラー", message: "このQRコードは無効です", preferredStyle: .alert)
         alert.addAction(.init(title: "OK", style: .default))
         self.present(alert, animated: true)
