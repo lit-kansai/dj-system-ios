@@ -52,12 +52,12 @@ extension QRReaderViewController: QRScannerViewDelegate {
     func qrScannerView(_ qrScannerView: QRScannerView, didSuccess code: String) {
         let extractedRoomID = URL.extractRoomID(inputURL: code)
         switch extractedRoomID {
-        case .success(let roomID) :
+        case .success(let roomID):
             let validURL = roomID
             let roomOverViewPageView = RoomOverviewViewController(roomAPI: Room.API(), roomOverview: RoomOverview(id: validURL, name: "", description: ""))
             navigationController?.pushViewController(roomOverViewPageView, animated: true)
 
-        case .failure :
+        case .failure:
             let alert = UIAlertController(title: "エラー", message: "このURLに対応するルームが見つかりません。", preferredStyle: .alert)
             alert.addAction(.init(title: "OK", style: .default))
             self.present(alert, animated: true)
