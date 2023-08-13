@@ -24,6 +24,8 @@
 	<string>$(ENVIRONMENT)</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.entertainment</string>
+	<key>NSCameraUsageDescription</key>
+	<string>このアプリはカメラへのアクセスを求めています</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>LiT Kansai Mentors</string>
 	<key>UIApplicationSceneManifest</key>
